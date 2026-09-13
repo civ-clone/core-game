@@ -1,4 +1,4 @@
-import { Game } from './Game';
+import { Game, GameSlots } from './Game';
 /**
  * The game the module-level singletons belong to.
  *
@@ -10,5 +10,14 @@ import { Game } from './Game';
  *
  * Every other `new Game()` gets its own of everything.
  */
+/**
+ * The module-level singletons, as a slot map.
+ *
+ * Exported so that a ruleset's own game context can extend this one without
+ * silently losing the adoption: `new Game({ ...defaultSlots, ...mine })` keeps
+ * the core registries pointing at the same objects every unmigrated package
+ * still imports directly.
+ */
+export declare const defaultSlots: GameSlots;
 export declare const defaultGame: Game;
 export default defaultGame;

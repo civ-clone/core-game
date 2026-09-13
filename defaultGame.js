@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultGame = void 0;
+exports.defaultGame = exports.defaultSlots = void 0;
 const Game_1 = require("./Game");
 const AdditionalDataRegistry_1 = require("@civ-clone/core-data-object/AdditionalDataRegistry");
 const AdvanceRegistry_1 = require("@civ-clone/core-science/AdvanceRegistry");
@@ -59,7 +59,15 @@ const YieldRegistry_1 = require("@civ-clone/core-yield/YieldRegistry");
  *
  * Every other `new Game()` gets its own of everything.
  */
-exports.defaultGame = new Game_1.Game({
+/**
+ * The module-level singletons, as a slot map.
+ *
+ * Exported so that a ruleset's own game context can extend this one without
+ * silently losing the adoption: `new Game({ ...defaultSlots, ...mine })` keeps
+ * the core registries pointing at the same objects every unmigrated package
+ * still imports directly.
+ */
+exports.defaultSlots = {
     additionalData: AdditionalDataRegistry_1.instance,
     advances: AdvanceRegistry_1.instance,
     aiClients: AIClientRegistry_1.instance,
@@ -106,6 +114,7 @@ exports.defaultGame = new Game_1.Game({
     rng: core_random_1.instance,
     turn: Turn_1.instance,
     year: Year_1.instance,
-});
+};
+exports.defaultGame = new Game_1.Game(exports.defaultSlots);
 exports.default = exports.defaultGame;
 //# sourceMappingURL=defaultGame.js.map

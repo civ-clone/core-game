@@ -1,2 +1,2 @@
 export { Game, GameSlots } from './Game';
-export { defaultGame } from './defaultGame';
+export { defaultGame, defaultSlots } from './defaultGame';

@@ -1,4 +1,4 @@
-import { Game } from './Game';
+import { Game, GameSlots } from './Game';
 import { instance as additionalDataInstance } from '@civ-clone/core-data-object/AdditionalDataRegistry';
 import { instance as advancesInstance } from '@civ-clone/core-science/AdvanceRegistry';
 import { instance as aiClientsInstance } from '@civ-clone/core-ai-client/AIClientRegistry';
@@ -57,7 +57,15 @@ import { instance as yieldsInstance } from '@civ-clone/core-yield/YieldRegistry'
  *
  * Every other `new Game()` gets its own of everything.
  */
-export const defaultGame: Game = new Game({
+/**
+ * The module-level singletons, as a slot map.
+ *
+ * Exported so that a ruleset's own game context can extend this one without
+ * silently losing the adoption: `new Game({ ...defaultSlots, ...mine })` keeps
+ * the core registries pointing at the same objects every unmigrated package
+ * still imports directly.
+ */
+export const defaultSlots: GameSlots = {
   additionalData: additionalDataInstance,
   advances: advancesInstance,
   aiClients: aiClientsInstance,
@@ -104,6 +112,8 @@ export const defaultGame: Game = new Game({
   rng: rngInstance,
   turn: turnInstance,
   year: yearInstance,
-});
+};
+
+export const defaultGame: Game = new Game(defaultSlots);
 
 export default defaultGame;
