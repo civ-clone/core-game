@@ -6,6 +6,7 @@ const Engine_1 = require("@civ-clone/core-engine/Engine");
 const AdditionalDataRegistry_1 = require("@civ-clone/core-data-object/AdditionalDataRegistry");
 const AdvanceRegistry_1 = require("@civ-clone/core-science/AdvanceRegistry");
 const AIClientRegistry_1 = require("@civ-clone/core-ai-client/AIClientRegistry");
+const ClassRegistry_1 = require("@civ-clone/core-data-object/ClassRegistry");
 const AttributeRegistry_1 = require("@civ-clone/core-civilization/AttributeRegistry");
 const AvailableCityBuildItemsRegistry_1 = require("@civ-clone/core-city-build/AvailableCityBuildItemsRegistry");
 const AvailableGovernmentRegistry_1 = require("@civ-clone/core-government/AvailableGovernmentRegistry");
@@ -73,6 +74,7 @@ exports.defaultSlots = {
     advances: AdvanceRegistry_1.instance,
     aiClients: AIClientRegistry_1.instance,
     attributes: AttributeRegistry_1.instance,
+    classes: ClassRegistry_1.instance,
     availableCityBuildItems: AvailableCityBuildItemsRegistry_1.instance,
     availableGovernments: AvailableGovernmentRegistry_1.instance,
     availableTerrainFeatures: AvailableTerrainFeatureRegistry_1.instance,

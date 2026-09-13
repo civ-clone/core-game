@@ -3,6 +3,7 @@ import { instance as engineInstance } from '@civ-clone/core-engine/Engine';
 import { instance as additionalDataInstance } from '@civ-clone/core-data-object/AdditionalDataRegistry';
 import { instance as advancesInstance } from '@civ-clone/core-science/AdvanceRegistry';
 import { instance as aiClientsInstance } from '@civ-clone/core-ai-client/AIClientRegistry';
+import { instance as classesInstance } from '@civ-clone/core-data-object/ClassRegistry';
 import { instance as attributesInstance } from '@civ-clone/core-civilization/AttributeRegistry';
 import { instance as availableCityBuildItemsInstance } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
 import { instance as availableGovernmentsInstance } from '@civ-clone/core-government/AvailableGovernmentRegistry';
@@ -71,6 +72,7 @@ export const defaultSlots: GameSlots = {
   advances: advancesInstance,
   aiClients: aiClientsInstance,
   attributes: attributesInstance,
+  classes: classesInstance,
   availableCityBuildItems: availableCityBuildItemsInstance,
   availableGovernments: availableGovernmentsInstance,
   availableTerrainFeatures: availableTerrainFeaturesInstance,

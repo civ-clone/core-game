@@ -1,5 +1,9 @@
 import { AIClientRegistry } from '@civ-clone/core-ai-client/AIClientRegistry';
 import { AdditionalDataRegistry } from '@civ-clone/core-data-object/AdditionalDataRegistry';
+import { AttributeRegistry as AttributeRegistryClass } from '@civ-clone/core-civilization/AttributeRegistry';
+import { ClassRegistry } from '@civ-clone/core-data-object/ClassRegistry';
+import { DataObject } from '@civ-clone/core-data-object/DataObject';
+import Generator from '@civ-clone/core-world-generator/Generator';
 import { AdvanceRegistry } from '@civ-clone/core-science/AdvanceRegistry';
 import { AttributeRegistry } from '@civ-clone/core-civilization/AttributeRegistry';
 import { AvailableCityBuildItemsRegistry } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
@@ -62,6 +66,7 @@ import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
 export type GameSlots = {
   additionalData: AdditionalDataRegistry;
   advances: AdvanceRegistry;
+  classes: ClassRegistry;
   aiClients: AIClientRegistry;
   attributes: AttributeRegistry;
   availableCityBuildItems: AvailableCityBuildItemsRegistry;
@@ -112,6 +117,7 @@ export type GameSlots = {
 export class Game {
   readonly additionalData: AdditionalDataRegistry;
   readonly advances: AdvanceRegistry;
+  readonly classes: ClassRegistry;
   readonly aiClients: AIClientRegistry;
   readonly attributes: AttributeRegistry;
   readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
@@ -183,6 +189,7 @@ export class Game {
       adopted.additionalData ?? new AdditionalDataRegistry();
     this.advances = adopted.advances ?? new AdvanceRegistry();
     this.aiClients = adopted.aiClients ?? new AIClientRegistry();
+    this.classes = adopted.classes ?? new ClassRegistry();
     this.attributes = adopted.attributes ?? new AttributeRegistry();
     this.availableCityBuildItems =
       adopted.availableCityBuildItems ?? new AvailableCityBuildItemsRegistry();
@@ -235,6 +242,148 @@ export class Game {
     this.workedTiles =
       adopted.workedTiles ?? new WorkedTileRegistry(this.rules);
     this.yields = adopted.yields ?? new YieldRegistry();
+  }
+
+  /**
+   * Re-attach everything a hydrated entity did not get from the save.
+   *
+   * `stateKeys()` omits every transient field, so an entity rebuilt with
+   * `Object.assign(Object.create(Type.prototype), state)` arrives with those
+   * fields *absent* — not null, not empty, `undefined`. Three of the four
+   * categories below then misbehave, and one of them does so silently: a
+   * `Yield` whose `_valueCache` is `undefined` fails the `=== null` guard that
+   * would have recomputed it, so `value()` returns `undefined` and every yield
+   * in a loaded game reads empty with no error at all. Measured, and written
+   * up in `03-save-format.md`.
+   *
+   * Blunt tables rather than a clever field-name-to-slot mapping: there are
+   * twenty-six fields in total, they are greppable this way, and the
+   * assertion at the end is what actually keeps this honest as classes change.
+   */
+  inject(entity: DataObject): void {
+    // Typed structurally rather than relying on `DataObject`'s own declaration:
+    // this package's `node_modules` can hold an older `core-data-object` than
+    // the one the renderer resolves, and the compile should not depend on which.
+    const saveable = entity as unknown as {
+      allTransient(): readonly string[];
+      sourceClass<T>(): T;
+      constructor: { name: string };
+    };
+    const target = entity as unknown as Record<string, unknown>;
+
+    // 1. Collaborators the game holds. `_id` and `_keys` are transient but come
+    //    from the save rather than from here — they are bookkeeping, and the
+    //    hydrator sets them alongside the entity's id.
+    const collaborators: { [field: string]: unknown } = {
+      _additionalDataRegistry: this.additionalData,
+      _advanceRegistry: this.advances,
+      _availableCityBuildItemsRegistry: this.availableCityBuildItems,
+      _availableGovernmentRegistry: this.availableGovernments,
+      _cityBuildRegistry: this.cityBuilds,
+      _cityNamesRegistry: this.cityNames,
+      _cityRegistry: this.cities,
+      _landMassRegistry: this.landMasses,
+      _playerResearchRegistry: this.playerResearch,
+      _playerTreasuryRegistry: this.playerTreasuries,
+      // Two spellings of one thing, both present in the engine.
+      _ruleRegistry: this.rules,
+      _rulesRegistry: this.rules,
+      _turn: this.turn,
+      _unitRegistry: this.units,
+      _workedTileRegistry: this.workedTiles,
+      _year: this.year,
+      // `IRng` is callable, so a `() => number` field takes the game's
+      // generator directly and resumes the same stream.
+      _randomNumberGenerator: this.rng,
+    };
+
+    // 2. Caches, which need their *initialiser* rather than a collaborator —
+    //    the lazy guards are written against it, not against `undefined`.
+    const caches: { [field: string]: () => unknown } = {
+      _cache: () => new Map(),
+      _cachedSearch: () => new Map(),
+      _neighbours: () => [],
+      _valueCache: () => null,
+      _yieldCache: () => new Map(),
+    };
+
+    // 3. Derived from the game *and* the entity's own restored state, so
+    //    neither table can express them.
+    const derived: { [field: string]: () => unknown } = {
+      // A civilisation's own attributes are a filtered view of the game's,
+      // which is exactly what its constructor builds.
+      _attributes: () => {
+        const attributes = new AttributeRegistryClass();
+
+        attributes.register(
+          ...this.attributes.getByCivilization(saveable.sourceClass())
+        );
+
+        return attributes;
+      },
+      // `World` never exposes its generator and uses it for two things:
+      // `generate()`, which a loaded world never calls, and `coordsToIndex`
+      // in `get(x, y)`. Every geometry method is a pure function of height and
+      // width, both of which are saved state, so a plain `Generator` built
+      // from them is exact. The original's class and options matter only for
+      // regenerating.
+      _generator: () =>
+        new Generator(
+          (target._height as number) ?? 0,
+          (target._width as number) ?? 0
+        ),
+    };
+
+    saveable.allTransient().forEach((field: string) => {
+      if (field === '_id' || field === '_keys') {
+        return;
+      }
+
+      if (field in collaborators) {
+        target[field] = collaborators[field];
+
+        return;
+      }
+
+      if (field in caches) {
+        target[field] = caches[field]();
+
+        return;
+      }
+
+      if (field in derived) {
+        target[field] = derived[field]();
+      }
+    });
+
+    // Exactly one class in the 328 packages builds per-instance structure in
+    // its constructor — `PlayerTile`, which installs an accessor per registered
+    // `AdditionalData`. Those accessors are non-enumerable, so `stateKeys()`
+    // never saw them and hydration never restored them. One class, so an
+    // optional hook rather than a convention.
+    const hook = (entity as unknown as { onHydrated?: () => void }).onHydrated;
+
+    if (typeof hook === 'function') {
+      hook.call(entity);
+    }
+
+    // The part that matters more than the tables. A field added to a
+    // `transient` declaration and not to this method leaves `undefined`
+    // behind, which is a wrong answer rather than an error — see `Yield` above.
+    // This turns it into a load failure naming the class and the field.
+    const missed = saveable
+      .allTransient()
+      .filter((field: string) => field !== '_id' && field !== '_keys')
+      .filter((field: string) => target[field] === undefined);
+
+    if (missed.length > 0) {
+      throw new TypeError(
+        `Game.inject left ${saveable.constructor.name}.${missed.join(', ')} ` +
+          'undefined. A transient field has no source here, so a loaded game ' +
+          'would read it as `undefined` rather than fail. Add it to the ' +
+          'collaborator, cache or derived table in `Game.inject`.'
+      );
+    }
   }
 }
 

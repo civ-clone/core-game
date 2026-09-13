@@ -1,5 +1,7 @@
 import { AIClientRegistry } from '@civ-clone/core-ai-client/AIClientRegistry';
 import { AdditionalDataRegistry } from '@civ-clone/core-data-object/AdditionalDataRegistry';
+import { ClassRegistry } from '@civ-clone/core-data-object/ClassRegistry';
+import { DataObject } from '@civ-clone/core-data-object/DataObject';
 import { AdvanceRegistry } from '@civ-clone/core-science/AdvanceRegistry';
 import { AttributeRegistry } from '@civ-clone/core-civilization/AttributeRegistry';
 import { AvailableCityBuildItemsRegistry } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
@@ -61,6 +63,7 @@ import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
 export type GameSlots = {
   additionalData: AdditionalDataRegistry;
   advances: AdvanceRegistry;
+  classes: ClassRegistry;
   aiClients: AIClientRegistry;
   attributes: AttributeRegistry;
   availableCityBuildItems: AvailableCityBuildItemsRegistry;
@@ -110,6 +113,7 @@ export type GameSlots = {
 export declare class Game {
   readonly additionalData: AdditionalDataRegistry;
   readonly advances: AdvanceRegistry;
+  readonly classes: ClassRegistry;
   readonly aiClients: AIClientRegistry;
   readonly attributes: AttributeRegistry;
   readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
@@ -166,5 +170,22 @@ export declare class Game {
    * the point of the exercise.
    */
   constructor(adopted?: Partial<GameSlots>);
+  /**
+   * Re-attach everything a hydrated entity did not get from the save.
+   *
+   * `stateKeys()` omits every transient field, so an entity rebuilt with
+   * `Object.assign(Object.create(Type.prototype), state)` arrives with those
+   * fields *absent* — not null, not empty, `undefined`. Three of the four
+   * categories below then misbehave, and one of them does so silently: a
+   * `Yield` whose `_valueCache` is `undefined` fails the `=== null` guard that
+   * would have recomputed it, so `value()` returns `undefined` and every yield
+   * in a loaded game reads empty with no error at all. Measured, and written
+   * up in `03-save-format.md`.
+   *
+   * Blunt tables rather than a clever field-name-to-slot mapping: there are
+   * twenty-six fields in total, they are greppable this way, and the
+   * assertion at the end is what actually keeps this honest as classes change.
+   */
+  inject(entity: DataObject): void;
 }
 export default Game;
