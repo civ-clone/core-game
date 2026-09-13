@@ -1,4 +1,5 @@
 import { Game, GameSlots } from './Game';
+import { instance as engineInstance } from '@civ-clone/core-engine/Engine';
 import { instance as additionalDataInstance } from '@civ-clone/core-data-object/AdditionalDataRegistry';
 import { instance as advancesInstance } from '@civ-clone/core-science/AdvanceRegistry';
 import { instance as aiClientsInstance } from '@civ-clone/core-ai-client/AIClientRegistry';
@@ -109,6 +110,7 @@ export const defaultSlots: GameSlots = {
   wonders: wondersInstance,
   workedTiles: workedTilesInstance,
   yields: yieldsInstance,
+  engine: engineInstance,
   rng: rngInstance,
   turn: turnInstance,
   year: yearInstance,

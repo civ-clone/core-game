@@ -47,6 +47,22 @@ describe('Game', (): void => {
     expect(a.rng()).to.equal(bFirst);
   });
 
+  it('should give each game its own engine', (): void => {
+    // Sharing one would mean each game saw the other's turns start.
+    const a = new Game();
+    const b = new Game();
+    let heard = 0;
+
+    a.engine.on('turn:start', () => (heard += 1));
+    b.engine.emit('turn:start', 1);
+
+    expect(heard).to.equal(0);
+
+    a.engine.emit('turn:start', 1);
+
+    expect(heard).to.equal(1);
+  });
+
   it('should give each game its own turn and year', (): void => {
     const a = new Game();
     const b = new Game();

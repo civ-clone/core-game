@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultGame = exports.defaultSlots = void 0;
 const Game_1 = require("./Game");
+const Engine_1 = require("@civ-clone/core-engine/Engine");
 const AdditionalDataRegistry_1 = require("@civ-clone/core-data-object/AdditionalDataRegistry");
 const AdvanceRegistry_1 = require("@civ-clone/core-science/AdvanceRegistry");
 const AIClientRegistry_1 = require("@civ-clone/core-ai-client/AIClientRegistry");
@@ -111,6 +112,7 @@ exports.defaultSlots = {
     wonders: WonderRegistry_1.instance,
     workedTiles: WorkedTileRegistry_1.instance,
     yields: YieldRegistry_1.instance,
+    engine: Engine_1.instance,
     rng: core_random_1.instance,
     turn: Turn_1.instance,
     year: Year_1.instance,

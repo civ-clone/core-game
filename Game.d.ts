@@ -16,6 +16,7 @@ import { ClientRegistry } from '@civ-clone/core-client/ClientRegistry';
 import { CurrentPlayerRegistry } from '@civ-clone/core-player/CurrentPlayerRegistry';
 import { GeneratorRegistry } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { GoodyHutRegistry } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
+import { Engine } from '@civ-clone/core-engine/Engine';
 import { IRng } from '@civ-clone/core-random';
 import { InteractionRegistry } from '@civ-clone/core-diplomacy/InteractionRegistry';
 import { LandMassRegistry } from '@civ-clone/core-world/LandMassRegistry';
@@ -101,6 +102,7 @@ export type GameSlots = {
   wonders: WonderRegistry;
   workedTiles: WorkedTileRegistry;
   yields: YieldRegistry;
+  engine: Engine;
   rng: IRng;
   turn: Turn;
   year: Year;
@@ -149,6 +151,7 @@ export declare class Game {
   readonly wonders: WonderRegistry;
   readonly workedTiles: WorkedTileRegistry;
   readonly yields: YieldRegistry;
+  readonly engine: Engine;
   readonly rng: IRng;
   readonly turn: Turn;
   readonly year: Year;

@@ -16,6 +16,7 @@ import { ClientRegistry } from '@civ-clone/core-client/ClientRegistry';
 import { CurrentPlayerRegistry } from '@civ-clone/core-player/CurrentPlayerRegistry';
 import { GeneratorRegistry } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { GoodyHutRegistry } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
+import { Engine } from '@civ-clone/core-engine/Engine';
 import { IRng, createRng } from '@civ-clone/core-random';
 import { InteractionRegistry } from '@civ-clone/core-diplomacy/InteractionRegistry';
 import { LandMassRegistry } from '@civ-clone/core-world/LandMassRegistry';
@@ -102,6 +103,7 @@ export type GameSlots = {
   wonders: WonderRegistry;
   workedTiles: WorkedTileRegistry;
   yields: YieldRegistry;
+  engine: Engine;
   rng: IRng;
   turn: Turn;
   year: Year;
@@ -151,6 +153,7 @@ export class Game {
   readonly wonders: WonderRegistry;
   readonly workedTiles: WorkedTileRegistry;
   readonly yields: YieldRegistry;
+  readonly engine: Engine;
   readonly rng: IRng;
   readonly turn: Turn;
   readonly year: Year;
@@ -166,6 +169,9 @@ export class Game {
    * the point of the exercise.
    */
   constructor(adopted: Partial<GameSlots> = {}) {
+    // `Engine` is per-game too: it carries the event stream a game runs on, so
+    // two games sharing one would each see the other's turns start.
+    this.engine = adopted.engine ?? new Engine();
     this.rng = adopted.rng ?? createRng(Date.now());
     this.turn = adopted.turn ?? new Turn();
     this.year = adopted.year ?? new Year();
