@@ -29,6 +29,7 @@ const LandMassRegistry_1 = require("@civ-clone/core-world/LandMassRegistry");
 const LayoutRegistry_1 = require("@civ-clone/core-spaceship/LayoutRegistry");
 const LeaderRegistry_1 = require("@civ-clone/core-civilization/LeaderRegistry");
 const PathFinderRegistry_1 = require("@civ-clone/core-world-path/PathFinderRegistry");
+const core_pending_effect_1 = require("@civ-clone/core-pending-effect");
 const PlayerGovernmentRegistry_1 = require("@civ-clone/core-government/PlayerGovernmentRegistry");
 const PlayerResearchRegistry_1 = require("@civ-clone/core-science/PlayerResearchRegistry");
 const PlayerTradeRatesRegistry_1 = require("@civ-clone/core-trade-rate/PlayerTradeRatesRegistry");
@@ -98,6 +99,7 @@ exports.defaultSlots = {
     layouts: LayoutRegistry_1.instance,
     leaders: LeaderRegistry_1.instance,
     pathFinders: PathFinderRegistry_1.instance,
+    pendingEffects: core_pending_effect_1.instance,
     playerGovernments: PlayerGovernmentRegistry_1.instance,
     playerResearch: PlayerResearchRegistry_1.instance,
     players: PlayerRegistry_1.instance,

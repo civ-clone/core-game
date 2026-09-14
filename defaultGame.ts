@@ -26,6 +26,7 @@ import { instance as landMassesInstance } from '@civ-clone/core-world/LandMassRe
 import { instance as layoutsInstance } from '@civ-clone/core-spaceship/LayoutRegistry';
 import { instance as leadersInstance } from '@civ-clone/core-civilization/LeaderRegistry';
 import { instance as pathFindersInstance } from '@civ-clone/core-world-path/PathFinderRegistry';
+import { instance as pendingEffectsInstance } from '@civ-clone/core-pending-effect';
 import { instance as playerGovernmentsInstance } from '@civ-clone/core-government/PlayerGovernmentRegistry';
 import { instance as playerResearchInstance } from '@civ-clone/core-science/PlayerResearchRegistry';
 import { instance as playerTradeRatesInstance } from '@civ-clone/core-trade-rate/PlayerTradeRatesRegistry';
@@ -96,6 +97,7 @@ export const defaultSlots: GameSlots = {
   layouts: layoutsInstance,
   leaders: leadersInstance,
   pathFinders: pathFindersInstance,
+  pendingEffects: pendingEffectsInstance,
   playerGovernments: playerGovernmentsInstance,
   playerResearch: playerResearchInstance,
   players: playersInstance,

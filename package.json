@@ -44,6 +44,7 @@
     "@civ-clone/core-game-year": "^0.1.0",
     "@civ-clone/core-goody-hut": "^0.1.0",
     "@civ-clone/core-government": "^0.1.0",
+    "@civ-clone/core-pending-effect": "^0.1.0",
     "@civ-clone/core-player": "^0.1.0",
     "@civ-clone/core-player-world": "^0.1.0",
     "@civ-clone/core-random": "^0.1.0",

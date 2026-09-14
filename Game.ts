@@ -29,6 +29,7 @@ import { LandMassRegistry } from '@civ-clone/core-world/LandMassRegistry';
 import { LayoutRegistry } from '@civ-clone/core-spaceship/LayoutRegistry';
 import { LeaderRegistry } from '@civ-clone/core-civilization/LeaderRegistry';
 import { PathFinderRegistry } from '@civ-clone/core-world-path/PathFinderRegistry';
+import { PendingEffectRegistry } from '@civ-clone/core-pending-effect';
 import { PlayerGovernmentRegistry } from '@civ-clone/core-government/PlayerGovernmentRegistry';
 import { PlayerRegistry } from '@civ-clone/core-player/PlayerRegistry';
 import { PlayerResearchRegistry } from '@civ-clone/core-science/PlayerResearchRegistry';
@@ -92,6 +93,7 @@ export type GameSlots = {
   layouts: LayoutRegistry;
   leaders: LeaderRegistry;
   pathFinders: PathFinderRegistry;
+  pendingEffects: PendingEffectRegistry;
   playerGovernments: PlayerGovernmentRegistry;
   playerResearch: PlayerResearchRegistry;
   players: PlayerRegistry;
@@ -145,6 +147,7 @@ export class Game {
   readonly layouts: LayoutRegistry;
   readonly leaders: LeaderRegistry;
   readonly pathFinders: PathFinderRegistry;
+  readonly pendingEffects: PendingEffectRegistry;
   readonly playerGovernments: PlayerGovernmentRegistry;
   readonly playerResearch: PlayerResearchRegistry;
   readonly players: PlayerRegistry;
@@ -227,6 +230,7 @@ export class Game {
     this.layouts = adopted.layouts ?? new LayoutRegistry();
     this.leaders = adopted.leaders ?? new LeaderRegistry();
     this.pathFinders = adopted.pathFinders ?? new PathFinderRegistry();
+    this.pendingEffects = adopted.pendingEffects ?? new PendingEffectRegistry();
     this.playerGovernments =
       adopted.playerGovernments ?? new PlayerGovernmentRegistry();
     this.playerResearch =
