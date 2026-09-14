@@ -52,7 +52,7 @@ importers:
         version: 0.1.9
       '@civ-clone/core-player-world':
         specifier: ^0.1.0
-        version: 0.1.11
+        version: 0.1.12
       '@civ-clone/core-random':
         specifier: ^0.1.0
         version: 0.1.1
@@ -76,7 +76,7 @@ importers:
         version: 0.1.4
       '@civ-clone/core-tile-improvement':
         specifier: ^0.1.0
-        version: 0.1.3
+        version: 0.1.4
       '@civ-clone/core-trade-rate':
         specifier: ^0.1.0
         version: 0.1.6
@@ -91,7 +91,7 @@ importers:
         version: 0.1.19
       '@civ-clone/core-unit-improvement':
         specifier: ^0.1.0
-        version: 0.1.2
+        version: 0.1.3
       '@civ-clone/core-unit-transport':
         specifier: ^0.1.0
         version: 0.1.7
@@ -177,8 +177,8 @@ packages:
   '@civ-clone/core-government@0.1.6':
     resolution: {integrity: sha512-utMFhwPi8nb9x/NO1xBVR3wOxHZytGiMvkZRtHFCLkgAfmmP9QSQHXwjVf/OeyMpZnjctRxptcCbyeUveJAy6A==}
 
-  '@civ-clone/core-player-world@0.1.11':
-    resolution: {integrity: sha512-KmBgxSWx4o5WsgXdA9j2WrPzhOAtu0Cq1+KUjYtI0MIJ/UUXwPNV3m3riPwn0gRoOiD+NH8GAtM3ew/4GmHuZg==}
+  '@civ-clone/core-player-world@0.1.12':
+    resolution: {integrity: sha512-5WDH4cagppNP7YHamovbGOrGPWhU++2VTzWyeNkmhWhrn5/2NtGqV1nqUep2vZhkXkDjs+Etv7ksFKxICw1KKA==}
 
   '@civ-clone/core-player@0.1.9':
     resolution: {integrity: sha512-z1rwfX+XPxJn3pCV46rH3pgEsjZfuXN0zH+Hs2ztRb3mSlpcmoTx/3emembKbto4oAwdYeM2gDTgrgarV6IQKg==}
@@ -207,8 +207,8 @@ packages:
   '@civ-clone/core-terrain@0.1.4':
     resolution: {integrity: sha512-Or81lpGPcWgXb7gqLwdyNXSZgjME6eqCRJ8pw2bYcCL0g7SGEAXgnOlz1WV+Ti5Ym1h4OclDPPiY3kPvsdwSeA==}
 
-  '@civ-clone/core-tile-improvement@0.1.3':
-    resolution: {integrity: sha512-Lc9FQm1vSOfXEQWOFZvveCvmcBzrgTPZXaW8DF9cxCOmFhTsTz3/NPDFq1dmyTsiwoErjjdSnrju0gk52ik3xw==}
+  '@civ-clone/core-tile-improvement@0.1.4':
+    resolution: {integrity: sha512-ZXLJdsm/BNdm2vFEUl0JzVzFPjiXIXrFtI7jgqCUvFYG3OJ2MIXCERT4WULodh+O+YTug7zYQqSm2zP2ngYW3w==}
 
   '@civ-clone/core-trade-rate@0.1.6':
     resolution: {integrity: sha512-0c1QknGssjL4cGEJ+ahzfZY9F/OVjwDR37WLcXsIKVnKBE4/hxXUKZ+5DYij2R2NgA+VPMNE5CIkeYS9b+OEOQ==}
@@ -219,8 +219,8 @@ packages:
   '@civ-clone/core-turn-based-game@0.1.7':
     resolution: {integrity: sha512-oDCa2X14P9ocbwgr1SQCEHGVACNUrSj3XCB5uHN0GmZYDvHsIB+OFFV6/AHQ+Dw+ypFaiKb1j0c1rXw0dddBoA==}
 
-  '@civ-clone/core-unit-improvement@0.1.2':
-    resolution: {integrity: sha512-V41rHAGERkFPFiGbf0etEYx2kiCdkf81GByEQOda4i4AxtvG5YVGJrXVFqpevYUeT191pcVIxXYEwRf1P2xN2A==}
+  '@civ-clone/core-unit-improvement@0.1.3':
+    resolution: {integrity: sha512-a/3MEcjZpxBxQvmCbkR2M/yPFCNUmCBSgXZEfOsLiizFYg+73ijxdjUugnFWcYijPzw/CjNOmNZzhlVbf0CnKg==}
 
   '@civ-clone/core-unit-transport@0.1.7':
     resolution: {integrity: sha512-3DlqQXw5uQF1/DBwuuCQBpFZ7+QPfIDXSUFaSxrWBo63JoVzkjnC1ba/hwuqFd/98vKn3ssGE+PpTCHmKCDLUw==}
@@ -757,7 +757,7 @@ snapshots:
       '@civ-clone/core-registry': 0.1.2
       '@civ-clone/core-rule': 0.1.4
 
-  '@civ-clone/core-player-world@0.1.11':
+  '@civ-clone/core-player-world@0.1.12':
     dependencies:
       '@civ-clone/core-data-object': 0.1.16
       '@civ-clone/core-player': 0.1.9
@@ -826,7 +826,7 @@ snapshots:
       '@civ-clone/core-registry': 0.1.2
       '@civ-clone/core-rule': 0.1.4
 
-  '@civ-clone/core-tile-improvement@0.1.3':
+  '@civ-clone/core-tile-improvement@0.1.4':
     dependencies:
       '@civ-clone/core-data-object': 0.1.16
       '@civ-clone/core-player': 0.1.9
@@ -860,7 +860,7 @@ snapshots:
       '@civ-clone/core-rule': 0.1.4
       '@civ-clone/core-yield': 0.1.6
 
-  '@civ-clone/core-unit-improvement@0.1.2':
+  '@civ-clone/core-unit-improvement@0.1.3':
     dependencies:
       '@civ-clone/core-data-object': 0.1.16
       '@civ-clone/core-registry': 0.1.2
