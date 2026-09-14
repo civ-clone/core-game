@@ -11,6 +11,8 @@ const AttributeRegistry_1 = require("@civ-clone/core-civilization/AttributeRegis
 const AvailableCityBuildItemsRegistry_1 = require("@civ-clone/core-city-build/AvailableCityBuildItemsRegistry");
 const AvailableGovernmentRegistry_1 = require("@civ-clone/core-government/AvailableGovernmentRegistry");
 const AvailableTerrainFeatureRegistry_1 = require("@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry");
+const AvailableTileImprovementRegistry_1 = require("@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry");
+const AvailableUnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry");
 const AvailableTradeRateRegistry_1 = require("@civ-clone/core-trade-rate/AvailableTradeRateRegistry");
 const CityRegistry_1 = require("@civ-clone/core-city/CityRegistry");
 const CityBuildRegistry_1 = require("@civ-clone/core-city-build/CityBuildRegistry");
@@ -78,7 +80,9 @@ exports.defaultSlots = {
     availableCityBuildItems: AvailableCityBuildItemsRegistry_1.instance,
     availableGovernments: AvailableGovernmentRegistry_1.instance,
     availableTerrainFeatures: AvailableTerrainFeatureRegistry_1.instance,
+    availableTileImprovements: AvailableTileImprovementRegistry_1.instance,
     availableTradeRates: AvailableTradeRateRegistry_1.instance,
+    availableUnitImprovements: AvailableUnitImprovementRegistry_1.instance,
     cities: CityRegistry_1.instance,
     cityBuilds: CityBuildRegistry_1.instance,
     cityGrowth: CityGrowthRegistry_1.instance,

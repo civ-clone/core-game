@@ -8,6 +8,8 @@ import { instance as attributesInstance } from '@civ-clone/core-civilization/Att
 import { instance as availableCityBuildItemsInstance } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
 import { instance as availableGovernmentsInstance } from '@civ-clone/core-government/AvailableGovernmentRegistry';
 import { instance as availableTerrainFeaturesInstance } from '@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry';
+import { instance as availableTileImprovementsInstance } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
+import { instance as availableUnitImprovementsInstance } from '@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry';
 import { instance as availableTradeRatesInstance } from '@civ-clone/core-trade-rate/AvailableTradeRateRegistry';
 import { instance as citiesInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as cityBuildsInstance } from '@civ-clone/core-city-build/CityBuildRegistry';
@@ -76,7 +78,9 @@ export const defaultSlots: GameSlots = {
   availableCityBuildItems: availableCityBuildItemsInstance,
   availableGovernments: availableGovernmentsInstance,
   availableTerrainFeatures: availableTerrainFeaturesInstance,
+  availableTileImprovements: availableTileImprovementsInstance,
   availableTradeRates: availableTradeRatesInstance,
+  availableUnitImprovements: availableUnitImprovementsInstance,
   cities: citiesInstance,
   cityBuilds: cityBuildsInstance,
   cityGrowth: cityGrowthInstance,

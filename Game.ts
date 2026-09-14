@@ -9,6 +9,8 @@ import { AttributeRegistry } from '@civ-clone/core-civilization/AttributeRegistr
 import { AvailableCityBuildItemsRegistry } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
 import { AvailableGovernmentRegistry } from '@civ-clone/core-government/AvailableGovernmentRegistry';
 import { AvailableTerrainFeatureRegistry } from '@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry';
+import { AvailableTileImprovementRegistry } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
+import { AvailableUnitImprovementRegistry } from '@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry';
 import { AvailableTradeRateRegistry } from '@civ-clone/core-trade-rate/AvailableTradeRateRegistry';
 import { CityBuildRegistry } from '@civ-clone/core-city-build/CityBuildRegistry';
 import { CityGrowthRegistry } from '@civ-clone/core-city-growth/CityGrowthRegistry';
@@ -72,7 +74,9 @@ export type GameSlots = {
   availableCityBuildItems: AvailableCityBuildItemsRegistry;
   availableGovernments: AvailableGovernmentRegistry;
   availableTerrainFeatures: AvailableTerrainFeatureRegistry;
+  availableTileImprovements: AvailableTileImprovementRegistry;
   availableTradeRates: AvailableTradeRateRegistry;
+  availableUnitImprovements: AvailableUnitImprovementRegistry;
   cities: CityRegistry;
   cityBuilds: CityBuildRegistry;
   cityGrowth: CityGrowthRegistry;
@@ -123,7 +127,9 @@ export class Game {
   readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
   readonly availableGovernments: AvailableGovernmentRegistry;
   readonly availableTerrainFeatures: AvailableTerrainFeatureRegistry;
+  readonly availableTileImprovements: AvailableTileImprovementRegistry;
   readonly availableTradeRates: AvailableTradeRateRegistry;
+  readonly availableUnitImprovements: AvailableUnitImprovementRegistry;
   readonly cities: CityRegistry;
   readonly cityBuilds: CityBuildRegistry;
   readonly cityGrowth: CityGrowthRegistry;
@@ -197,6 +203,12 @@ export class Game {
       adopted.availableGovernments ?? new AvailableGovernmentRegistry();
     this.availableTerrainFeatures =
       adopted.availableTerrainFeatures ?? new AvailableTerrainFeatureRegistry();
+    this.availableTileImprovements =
+      adopted.availableTileImprovements ??
+      new AvailableTileImprovementRegistry();
+    this.availableUnitImprovements =
+      adopted.availableUnitImprovements ??
+      new AvailableUnitImprovementRegistry();
     this.availableTradeRates =
       adopted.availableTradeRates ?? new AvailableTradeRateRegistry();
     this.cities = adopted.cities ?? new CityRegistry();
