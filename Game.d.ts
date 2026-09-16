@@ -117,7 +117,6 @@ export type GameSlots = {
   year: Year;
 };
 export declare class Game {
-  #private;
   readonly additionalData: AdditionalDataRegistry;
   readonly advances: AdvanceRegistry;
   readonly classes: ClassRegistry;
@@ -210,5 +209,27 @@ export declare class Game {
    */
   injectAll(entities: Iterable<DataObject>): void;
   inject(entity: DataObject): void;
+  private fill;
+  /**
+   * For what a class has to put back itself.
+   *
+   * `PlayerTile` installs an accessor per registered `AdditionalData`,
+   * non-enumerable, so `stateKeys()` never saw them; `City` recomputes its fat
+   * cross; and `World` puts the registry back around its restored tiles,
+   * because `encode` writes a registry held as a field as a plain array and
+   * the class around a collection is the one thing the format cannot record.
+   *
+   * Those last two were found by playing a loaded game rather than by
+   * comparing its bytes — a save can round-trip perfectly and still restore a
+   * world whose `tiles()` returns an array iterator.
+   */
+  private hydrated;
+  /**
+   * The part that matters more than the tables. A field added to a `transient`
+   * declaration and not to this method leaves `undefined` behind, which is a
+   * wrong answer rather than an error — see `Yield` above. This turns it into
+   * a load failure naming the class and the field.
+   */
+  private assertInjected;
 }
 export default Game;

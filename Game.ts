@@ -291,18 +291,18 @@ export class Game {
   injectAll(entities: Iterable<DataObject>): void {
     const all = [...entities];
 
-    all.forEach((entity: DataObject): void => this.#fill(entity));
-    all.forEach((entity: DataObject): void => this.#hydrated(entity));
-    all.forEach((entity: DataObject): void => this.#assertInjected(entity));
+    all.forEach((entity: DataObject): void => this.fill(entity));
+    all.forEach((entity: DataObject): void => this.hydrated(entity));
+    all.forEach((entity: DataObject): void => this.assertInjected(entity));
   }
 
   inject(entity: DataObject): void {
-    this.#fill(entity);
-    this.#hydrated(entity);
-    this.#assertInjected(entity);
+    this.fill(entity);
+    this.hydrated(entity);
+    this.assertInjected(entity);
   }
 
-  #fill(entity: DataObject): void {
+  private fill(entity: DataObject): void {
     // Typed structurally rather than relying on `DataObject`'s own declaration:
     // this package's `node_modules` can hold an older `core-data-object` than
     // the one the renderer resolves, and the compile should not depend on which.
@@ -412,7 +412,7 @@ export class Game {
    * comparing its bytes — a save can round-trip perfectly and still restore a
    * world whose `tiles()` returns an array iterator.
    */
-  #hydrated(entity: DataObject): void {
+  private hydrated(entity: DataObject): void {
     const hook = (entity as unknown as { onHydrated?: () => void }).onHydrated;
 
     if (typeof hook === 'function') {
@@ -426,7 +426,7 @@ export class Game {
    * wrong answer rather than an error — see `Yield` above. This turns it into
    * a load failure naming the class and the field.
    */
-  #assertInjected(entity: DataObject): void {
+  private assertInjected(entity: DataObject): void {
     const saveable = entity as unknown as {
       allTransient(): readonly string[];
       constructor: { name: string };

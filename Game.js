@@ -1,10 +1,4 @@
 "use strict";
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _Game_instances, _Game_fill, _Game_hydrated, _Game_assertInjected;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = void 0;
 const AIClientRegistry_1 = require("@civ-clone/core-ai-client/AIClientRegistry");
@@ -73,7 +67,6 @@ class Game {
      */
     constructor(adopted = {}) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26;
-        _Game_instances.add(this);
         // `Engine` is per-game too: it carries the event stream a game runs on, so
         // two games sharing one would each see the other's turns start.
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
@@ -175,112 +168,133 @@ class Game {
      */
     injectAll(entities) {
         const all = [...entities];
-        all.forEach((entity) => __classPrivateFieldGet(this, _Game_instances, "m", _Game_fill).call(this, entity));
-        all.forEach((entity) => __classPrivateFieldGet(this, _Game_instances, "m", _Game_hydrated).call(this, entity));
-        all.forEach((entity) => __classPrivateFieldGet(this, _Game_instances, "m", _Game_assertInjected).call(this, entity));
+        all.forEach((entity) => this.fill(entity));
+        all.forEach((entity) => this.hydrated(entity));
+        all.forEach((entity) => this.assertInjected(entity));
     }
     inject(entity) {
-        __classPrivateFieldGet(this, _Game_instances, "m", _Game_fill).call(this, entity);
-        __classPrivateFieldGet(this, _Game_instances, "m", _Game_hydrated).call(this, entity);
-        __classPrivateFieldGet(this, _Game_instances, "m", _Game_assertInjected).call(this, entity);
+        this.fill(entity);
+        this.hydrated(entity);
+        this.assertInjected(entity);
+    }
+    fill(entity) {
+        // Typed structurally rather than relying on `DataObject`'s own declaration:
+        // this package's `node_modules` can hold an older `core-data-object` than
+        // the one the renderer resolves, and the compile should not depend on which.
+        const saveable = entity;
+        const target = entity;
+        // 1. Collaborators the game holds. `_id` and `_keys` are transient but come
+        //    from the save rather than from here — they are bookkeeping, and the
+        //    hydrator sets them alongside the entity's id.
+        const collaborators = {
+            _additionalDataRegistry: this.additionalData,
+            _advanceRegistry: this.advances,
+            _availableCityBuildItemsRegistry: this.availableCityBuildItems,
+            _availableGovernmentRegistry: this.availableGovernments,
+            _cityBuildRegistry: this.cityBuilds,
+            _cityNamesRegistry: this.cityNames,
+            _cityRegistry: this.cities,
+            _landMassRegistry: this.landMasses,
+            _playerResearchRegistry: this.playerResearch,
+            _playerTreasuryRegistry: this.playerTreasuries,
+            // Two spellings of one thing, both present in the engine.
+            _ruleRegistry: this.rules,
+            _rulesRegistry: this.rules,
+            _turn: this.turn,
+            _unitRegistry: this.units,
+            _workedTileRegistry: this.workedTiles,
+            _year: this.year,
+            // `IRng` is callable, so a `() => number` field takes the game's
+            // generator directly and resumes the same stream.
+            _randomNumberGenerator: this.rng,
+        };
+        // 2. Caches, which need their *initialiser* rather than a collaborator —
+        //    the lazy guards are written against it, not against `undefined`.
+        const caches = {
+            _cache: () => new Map(),
+            _cachedSearch: () => new Map(),
+            _neighbours: () => [],
+            _valueCache: () => null,
+            _yieldCache: () => new Map(),
+        };
+        // 3. Derived from the game *and* the entity's own restored state, so
+        //    neither table can express them.
+        const derived = {
+            // A civilisation's own attributes are a filtered view of the game's,
+            // which is exactly what its constructor builds.
+            _attributes: () => {
+                const attributes = new AttributeRegistry_1.AttributeRegistry();
+                attributes.register(...this.attributes.getByCivilization(saveable.sourceClass()));
+                return attributes;
+            },
+            // `World` never exposes its generator and uses it for two things:
+            // `generate()`, which a loaded world never calls, and `coordsToIndex`
+            // in `get(x, y)`. Every geometry method is a pure function of height and
+            // width, both of which are saved state, so a plain `Generator` built
+            // from them is exact. The original's class and options matter only for
+            // regenerating.
+            _generator: () => {
+                var _a, _b;
+                return new Generator_1.default((_a = target._height) !== null && _a !== void 0 ? _a : 0, (_b = target._width) !== null && _b !== void 0 ? _b : 0);
+            },
+        };
+        saveable.allTransient().forEach((field) => {
+            if (field === '_id' || field === '_keys') {
+                return;
+            }
+            if (field in collaborators) {
+                target[field] = collaborators[field];
+                return;
+            }
+            if (field in caches) {
+                target[field] = caches[field]();
+                return;
+            }
+            if (field in derived) {
+                target[field] = derived[field]();
+            }
+        });
+    }
+    /**
+     * For what a class has to put back itself.
+     *
+     * `PlayerTile` installs an accessor per registered `AdditionalData`,
+     * non-enumerable, so `stateKeys()` never saw them; `City` recomputes its fat
+     * cross; and `World` puts the registry back around its restored tiles,
+     * because `encode` writes a registry held as a field as a plain array and
+     * the class around a collection is the one thing the format cannot record.
+     *
+     * Those last two were found by playing a loaded game rather than by
+     * comparing its bytes — a save can round-trip perfectly and still restore a
+     * world whose `tiles()` returns an array iterator.
+     */
+    hydrated(entity) {
+        const hook = entity.onHydrated;
+        if (typeof hook === 'function') {
+            hook.call(entity);
+        }
+    }
+    /**
+     * The part that matters more than the tables. A field added to a `transient`
+     * declaration and not to this method leaves `undefined` behind, which is a
+     * wrong answer rather than an error — see `Yield` above. This turns it into
+     * a load failure naming the class and the field.
+     */
+    assertInjected(entity) {
+        const saveable = entity;
+        const target = entity;
+        const missed = saveable
+            .allTransient()
+            .filter((field) => field !== '_id' && field !== '_keys')
+            .filter((field) => target[field] === undefined);
+        if (missed.length > 0) {
+            throw new TypeError(`Game.inject left ${saveable.constructor.name}.${missed.join(', ')} ` +
+                'undefined. A transient field has no source here, so a loaded game ' +
+                'would read it as `undefined` rather than fail. Add it to the ' +
+                'collaborator, cache or derived table in `Game.inject`.');
+        }
     }
 }
 exports.Game = Game;
-_Game_instances = new WeakSet(), _Game_fill = function _Game_fill(entity) {
-    // Typed structurally rather than relying on `DataObject`'s own declaration:
-    // this package's `node_modules` can hold an older `core-data-object` than
-    // the one the renderer resolves, and the compile should not depend on which.
-    const saveable = entity;
-    const target = entity;
-    // 1. Collaborators the game holds. `_id` and `_keys` are transient but come
-    //    from the save rather than from here — they are bookkeeping, and the
-    //    hydrator sets them alongside the entity's id.
-    const collaborators = {
-        _additionalDataRegistry: this.additionalData,
-        _advanceRegistry: this.advances,
-        _availableCityBuildItemsRegistry: this.availableCityBuildItems,
-        _availableGovernmentRegistry: this.availableGovernments,
-        _cityBuildRegistry: this.cityBuilds,
-        _cityNamesRegistry: this.cityNames,
-        _cityRegistry: this.cities,
-        _landMassRegistry: this.landMasses,
-        _playerResearchRegistry: this.playerResearch,
-        _playerTreasuryRegistry: this.playerTreasuries,
-        // Two spellings of one thing, both present in the engine.
-        _ruleRegistry: this.rules,
-        _rulesRegistry: this.rules,
-        _turn: this.turn,
-        _unitRegistry: this.units,
-        _workedTileRegistry: this.workedTiles,
-        _year: this.year,
-        // `IRng` is callable, so a `() => number` field takes the game's
-        // generator directly and resumes the same stream.
-        _randomNumberGenerator: this.rng,
-    };
-    // 2. Caches, which need their *initialiser* rather than a collaborator —
-    //    the lazy guards are written against it, not against `undefined`.
-    const caches = {
-        _cache: () => new Map(),
-        _cachedSearch: () => new Map(),
-        _neighbours: () => [],
-        _valueCache: () => null,
-        _yieldCache: () => new Map(),
-    };
-    // 3. Derived from the game *and* the entity's own restored state, so
-    //    neither table can express them.
-    const derived = {
-        // A civilisation's own attributes are a filtered view of the game's,
-        // which is exactly what its constructor builds.
-        _attributes: () => {
-            const attributes = new AttributeRegistry_1.AttributeRegistry();
-            attributes.register(...this.attributes.getByCivilization(saveable.sourceClass()));
-            return attributes;
-        },
-        // `World` never exposes its generator and uses it for two things:
-        // `generate()`, which a loaded world never calls, and `coordsToIndex`
-        // in `get(x, y)`. Every geometry method is a pure function of height and
-        // width, both of which are saved state, so a plain `Generator` built
-        // from them is exact. The original's class and options matter only for
-        // regenerating.
-        _generator: () => {
-            var _a, _b;
-            return new Generator_1.default((_a = target._height) !== null && _a !== void 0 ? _a : 0, (_b = target._width) !== null && _b !== void 0 ? _b : 0);
-        },
-    };
-    saveable.allTransient().forEach((field) => {
-        if (field === '_id' || field === '_keys') {
-            return;
-        }
-        if (field in collaborators) {
-            target[field] = collaborators[field];
-            return;
-        }
-        if (field in caches) {
-            target[field] = caches[field]();
-            return;
-        }
-        if (field in derived) {
-            target[field] = derived[field]();
-        }
-    });
-}, _Game_hydrated = function _Game_hydrated(entity) {
-    const hook = entity.onHydrated;
-    if (typeof hook === 'function') {
-        hook.call(entity);
-    }
-}, _Game_assertInjected = function _Game_assertInjected(entity) {
-    const saveable = entity;
-    const target = entity;
-    const missed = saveable
-        .allTransient()
-        .filter((field) => field !== '_id' && field !== '_keys')
-        .filter((field) => target[field] === undefined);
-    if (missed.length > 0) {
-        throw new TypeError(`Game.inject left ${saveable.constructor.name}.${missed.join(', ')} ` +
-            'undefined. A transient field has no source here, so a loaded game ' +
-            'would read it as `undefined` rather than fail. Add it to the ' +
-            'collaborator, cache or derived table in `Game.inject`.');
-    }
-};
 exports.default = Game;
 //# sourceMappingURL=Game.js.map
