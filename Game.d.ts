@@ -117,6 +117,7 @@ export type GameSlots = {
   year: Year;
 };
 export declare class Game {
+  #private;
   readonly additionalData: AdditionalDataRegistry;
   readonly advances: AdvanceRegistry;
   readonly classes: ClassRegistry;
@@ -195,6 +196,19 @@ export declare class Game {
    * twenty-six fields in total, they are greppable this way, and the
    * assertion at the end is what actually keeps this honest as classes change.
    */
+  /**
+   * Inject a whole hydration's worth of entities.
+   *
+   * Three sweeps, not one, because an `onHydrated` hook may read any other
+   * entity: `City`'s recomputes its fat cross, which asks the world for
+   * surrounding tiles, which needs the world's own injected generator. Injected
+   * one at a time, a city reached before its world threw inside the hook —
+   * after a load that had otherwise succeeded.
+   *
+   * The assertion runs last for the same reason: a transient field a hook
+   * fills is not missing until every hook has had its turn.
+   */
+  injectAll(entities: Iterable<DataObject>): void;
   inject(entity: DataObject): void;
 }
 export default Game;

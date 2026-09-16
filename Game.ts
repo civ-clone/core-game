@@ -276,7 +276,33 @@ export class Game {
    * twenty-six fields in total, they are greppable this way, and the
    * assertion at the end is what actually keeps this honest as classes change.
    */
+  /**
+   * Inject a whole hydration's worth of entities.
+   *
+   * Three sweeps, not one, because an `onHydrated` hook may read any other
+   * entity: `City`'s recomputes its fat cross, which asks the world for
+   * surrounding tiles, which needs the world's own injected generator. Injected
+   * one at a time, a city reached before its world threw inside the hook —
+   * after a load that had otherwise succeeded.
+   *
+   * The assertion runs last for the same reason: a transient field a hook
+   * fills is not missing until every hook has had its turn.
+   */
+  injectAll(entities: Iterable<DataObject>): void {
+    const all = [...entities];
+
+    all.forEach((entity: DataObject): void => this.#fill(entity));
+    all.forEach((entity: DataObject): void => this.#hydrated(entity));
+    all.forEach((entity: DataObject): void => this.#assertInjected(entity));
+  }
+
   inject(entity: DataObject): void {
+    this.#fill(entity);
+    this.#hydrated(entity);
+    this.#assertInjected(entity);
+  }
+
+  #fill(entity: DataObject): void {
     // Typed structurally rather than relying on `DataObject`'s own declaration:
     // this package's `node_modules` can hold an older `core-data-object` than
     // the one the renderer resolves, and the compile should not depend on which.
@@ -371,22 +397,42 @@ export class Game {
         target[field] = derived[field]();
       }
     });
+  }
 
-    // Exactly one class in the 328 packages builds per-instance structure in
-    // its constructor — `PlayerTile`, which installs an accessor per registered
-    // `AdditionalData`. Those accessors are non-enumerable, so `stateKeys()`
-    // never saw them and hydration never restored them. One class, so an
-    // optional hook rather than a convention.
+  /**
+   * For what a class has to put back itself.
+   *
+   * `PlayerTile` installs an accessor per registered `AdditionalData`,
+   * non-enumerable, so `stateKeys()` never saw them; `City` recomputes its fat
+   * cross; and `World` puts the registry back around its restored tiles,
+   * because `encode` writes a registry held as a field as a plain array and
+   * the class around a collection is the one thing the format cannot record.
+   *
+   * Those last two were found by playing a loaded game rather than by
+   * comparing its bytes — a save can round-trip perfectly and still restore a
+   * world whose `tiles()` returns an array iterator.
+   */
+  #hydrated(entity: DataObject): void {
     const hook = (entity as unknown as { onHydrated?: () => void }).onHydrated;
 
     if (typeof hook === 'function') {
       hook.call(entity);
     }
+  }
 
-    // The part that matters more than the tables. A field added to a
-    // `transient` declaration and not to this method leaves `undefined`
-    // behind, which is a wrong answer rather than an error — see `Yield` above.
-    // This turns it into a load failure naming the class and the field.
+  /**
+   * The part that matters more than the tables. A field added to a `transient`
+   * declaration and not to this method leaves `undefined` behind, which is a
+   * wrong answer rather than an error — see `Yield` above. This turns it into
+   * a load failure naming the class and the field.
+   */
+  #assertInjected(entity: DataObject): void {
+    const saveable = entity as unknown as {
+      allTransient(): readonly string[];
+      constructor: { name: string };
+    };
+    const target = entity as unknown as Record<string, unknown>;
+
     const missed = saveable
       .allTransient()
       .filter((field: string) => field !== '_id' && field !== '_keys')
