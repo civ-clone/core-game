@@ -345,6 +345,7 @@ export class Game {
       _cache: () => new Map(),
       _cachedSearch: () => new Map(),
       _neighbours: () => [],
+      _tileCache: () => null,
       _valueCache: () => null,
       _yieldCache: () => new Map(),
     };

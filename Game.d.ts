@@ -64,172 +64,172 @@ import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
  * with singleton defaults. What was missing was something to pass.
  */
 export type GameSlots = {
-  additionalData: AdditionalDataRegistry;
-  advances: AdvanceRegistry;
-  classes: ClassRegistry;
-  aiClients: AIClientRegistry;
-  attributes: AttributeRegistry;
-  availableCityBuildItems: AvailableCityBuildItemsRegistry;
-  availableGovernments: AvailableGovernmentRegistry;
-  availableTerrainFeatures: AvailableTerrainFeatureRegistry;
-  availableTileImprovements: AvailableTileImprovementRegistry;
-  availableTradeRates: AvailableTradeRateRegistry;
-  availableUnitImprovements: AvailableUnitImprovementRegistry;
-  cities: CityRegistry;
-  cityBuilds: CityBuildRegistry;
-  cityGrowth: CityGrowthRegistry;
-  cityImprovements: CityImprovementRegistry;
-  cityNames: CityNameRegistry;
-  civilizations: CivilizationRegistry;
-  clients: ClientRegistry;
-  currentPlayers: CurrentPlayerRegistry;
-  generators: GeneratorRegistry;
-  goodyHuts: GoodyHutRegistry;
-  interactions: InteractionRegistry;
-  landMasses: LandMassRegistry;
-  layouts: LayoutRegistry;
-  leaders: LeaderRegistry;
-  pathFinders: PathFinderRegistry;
-  pendingEffects: PendingEffectRegistry;
-  playerGovernments: PlayerGovernmentRegistry;
-  playerResearch: PlayerResearchRegistry;
-  players: PlayerRegistry;
-  playerTradeRates: PlayerTradeRatesRegistry;
-  playerTreasuries: PlayerTreasuryRegistry;
-  playerWorlds: PlayerWorldRegistry;
-  rules: RuleRegistry;
-  spaceships: SpaceshipRegistry;
-  strategies: StrategyRegistry;
-  strategyNotes: StrategyNoteRegistry;
-  terrainFeatures: TerrainFeatureRegistry;
-  terrains: TerrainRegistry;
-  tileImprovements: TileImprovementRegistry;
-  traits: TraitRegistry;
-  transports: TransportRegistry;
-  unitImprovements: UnitImprovementRegistry;
-  units: UnitRegistry;
-  wonders: WonderRegistry;
-  workedTiles: WorkedTileRegistry;
-  yields: YieldRegistry;
-  engine: Engine;
-  rng: IRng;
-  turn: Turn;
-  year: Year;
+    additionalData: AdditionalDataRegistry;
+    advances: AdvanceRegistry;
+    classes: ClassRegistry;
+    aiClients: AIClientRegistry;
+    attributes: AttributeRegistry;
+    availableCityBuildItems: AvailableCityBuildItemsRegistry;
+    availableGovernments: AvailableGovernmentRegistry;
+    availableTerrainFeatures: AvailableTerrainFeatureRegistry;
+    availableTileImprovements: AvailableTileImprovementRegistry;
+    availableTradeRates: AvailableTradeRateRegistry;
+    availableUnitImprovements: AvailableUnitImprovementRegistry;
+    cities: CityRegistry;
+    cityBuilds: CityBuildRegistry;
+    cityGrowth: CityGrowthRegistry;
+    cityImprovements: CityImprovementRegistry;
+    cityNames: CityNameRegistry;
+    civilizations: CivilizationRegistry;
+    clients: ClientRegistry;
+    currentPlayers: CurrentPlayerRegistry;
+    generators: GeneratorRegistry;
+    goodyHuts: GoodyHutRegistry;
+    interactions: InteractionRegistry;
+    landMasses: LandMassRegistry;
+    layouts: LayoutRegistry;
+    leaders: LeaderRegistry;
+    pathFinders: PathFinderRegistry;
+    pendingEffects: PendingEffectRegistry;
+    playerGovernments: PlayerGovernmentRegistry;
+    playerResearch: PlayerResearchRegistry;
+    players: PlayerRegistry;
+    playerTradeRates: PlayerTradeRatesRegistry;
+    playerTreasuries: PlayerTreasuryRegistry;
+    playerWorlds: PlayerWorldRegistry;
+    rules: RuleRegistry;
+    spaceships: SpaceshipRegistry;
+    strategies: StrategyRegistry;
+    strategyNotes: StrategyNoteRegistry;
+    terrainFeatures: TerrainFeatureRegistry;
+    terrains: TerrainRegistry;
+    tileImprovements: TileImprovementRegistry;
+    traits: TraitRegistry;
+    transports: TransportRegistry;
+    unitImprovements: UnitImprovementRegistry;
+    units: UnitRegistry;
+    wonders: WonderRegistry;
+    workedTiles: WorkedTileRegistry;
+    yields: YieldRegistry;
+    engine: Engine;
+    rng: IRng;
+    turn: Turn;
+    year: Year;
 };
 export declare class Game {
-  readonly additionalData: AdditionalDataRegistry;
-  readonly advances: AdvanceRegistry;
-  readonly classes: ClassRegistry;
-  readonly aiClients: AIClientRegistry;
-  readonly attributes: AttributeRegistry;
-  readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
-  readonly availableGovernments: AvailableGovernmentRegistry;
-  readonly availableTerrainFeatures: AvailableTerrainFeatureRegistry;
-  readonly availableTileImprovements: AvailableTileImprovementRegistry;
-  readonly availableTradeRates: AvailableTradeRateRegistry;
-  readonly availableUnitImprovements: AvailableUnitImprovementRegistry;
-  readonly cities: CityRegistry;
-  readonly cityBuilds: CityBuildRegistry;
-  readonly cityGrowth: CityGrowthRegistry;
-  readonly cityImprovements: CityImprovementRegistry;
-  readonly cityNames: CityNameRegistry;
-  readonly civilizations: CivilizationRegistry;
-  readonly clients: ClientRegistry;
-  readonly currentPlayers: CurrentPlayerRegistry;
-  readonly generators: GeneratorRegistry;
-  readonly goodyHuts: GoodyHutRegistry;
-  readonly interactions: InteractionRegistry;
-  readonly landMasses: LandMassRegistry;
-  readonly layouts: LayoutRegistry;
-  readonly leaders: LeaderRegistry;
-  readonly pathFinders: PathFinderRegistry;
-  readonly pendingEffects: PendingEffectRegistry;
-  readonly playerGovernments: PlayerGovernmentRegistry;
-  readonly playerResearch: PlayerResearchRegistry;
-  readonly players: PlayerRegistry;
-  readonly playerTradeRates: PlayerTradeRatesRegistry;
-  readonly playerTreasuries: PlayerTreasuryRegistry;
-  readonly playerWorlds: PlayerWorldRegistry;
-  readonly rules: RuleRegistry;
-  readonly spaceships: SpaceshipRegistry;
-  readonly strategies: StrategyRegistry;
-  readonly strategyNotes: StrategyNoteRegistry;
-  readonly terrainFeatures: TerrainFeatureRegistry;
-  readonly terrains: TerrainRegistry;
-  readonly tileImprovements: TileImprovementRegistry;
-  readonly traits: TraitRegistry;
-  readonly transports: TransportRegistry;
-  readonly unitImprovements: UnitImprovementRegistry;
-  readonly units: UnitRegistry;
-  readonly wonders: WonderRegistry;
-  readonly workedTiles: WorkedTileRegistry;
-  readonly yields: YieldRegistry;
-  readonly engine: Engine;
-  readonly rng: IRng;
-  readonly turn: Turn;
-  readonly year: Year;
-  /**
-   * `adopted` lets a game take ownership of registries that already exist,
-   * which is what `defaultGame` uses to wrap the module singletons. Without it
-   * the two worlds would diverge: code still importing `instance` and code
-   * using `game.cities` would be looking at different registries, and the
-   * migration could not be done a package at a time.
-   *
-   * Constructed with no argument, a game gets its own of everything — which is
-   * the point of the exercise.
-   */
-  constructor(adopted?: Partial<GameSlots>);
-  /**
-   * Re-attach everything a hydrated entity did not get from the save.
-   *
-   * `stateKeys()` omits every transient field, so an entity rebuilt with
-   * `Object.assign(Object.create(Type.prototype), state)` arrives with those
-   * fields *absent* — not null, not empty, `undefined`. Three of the four
-   * categories below then misbehave, and one of them does so silently: a
-   * `Yield` whose `_valueCache` is `undefined` fails the `=== null` guard that
-   * would have recomputed it, so `value()` returns `undefined` and every yield
-   * in a loaded game reads empty with no error at all. Measured, and written
-   * up in `03-save-format.md`.
-   *
-   * Blunt tables rather than a clever field-name-to-slot mapping: there are
-   * twenty-six fields in total, they are greppable this way, and the
-   * assertion at the end is what actually keeps this honest as classes change.
-   */
-  /**
-   * Inject a whole hydration's worth of entities.
-   *
-   * Three sweeps, not one, because an `onHydrated` hook may read any other
-   * entity: `City`'s recomputes its fat cross, which asks the world for
-   * surrounding tiles, which needs the world's own injected generator. Injected
-   * one at a time, a city reached before its world threw inside the hook —
-   * after a load that had otherwise succeeded.
-   *
-   * The assertion runs last for the same reason: a transient field a hook
-   * fills is not missing until every hook has had its turn.
-   */
-  injectAll(entities: Iterable<DataObject>): void;
-  inject(entity: DataObject): void;
-  private fill;
-  /**
-   * For what a class has to put back itself.
-   *
-   * `PlayerTile` installs an accessor per registered `AdditionalData`,
-   * non-enumerable, so `stateKeys()` never saw them; `City` recomputes its fat
-   * cross; and `World` puts the registry back around its restored tiles,
-   * because `encode` writes a registry held as a field as a plain array and
-   * the class around a collection is the one thing the format cannot record.
-   *
-   * Those last two were found by playing a loaded game rather than by
-   * comparing its bytes — a save can round-trip perfectly and still restore a
-   * world whose `tiles()` returns an array iterator.
-   */
-  private hydrated;
-  /**
-   * The part that matters more than the tables. A field added to a `transient`
-   * declaration and not to this method leaves `undefined` behind, which is a
-   * wrong answer rather than an error — see `Yield` above. This turns it into
-   * a load failure naming the class and the field.
-   */
-  private assertInjected;
+    readonly additionalData: AdditionalDataRegistry;
+    readonly advances: AdvanceRegistry;
+    readonly classes: ClassRegistry;
+    readonly aiClients: AIClientRegistry;
+    readonly attributes: AttributeRegistry;
+    readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
+    readonly availableGovernments: AvailableGovernmentRegistry;
+    readonly availableTerrainFeatures: AvailableTerrainFeatureRegistry;
+    readonly availableTileImprovements: AvailableTileImprovementRegistry;
+    readonly availableTradeRates: AvailableTradeRateRegistry;
+    readonly availableUnitImprovements: AvailableUnitImprovementRegistry;
+    readonly cities: CityRegistry;
+    readonly cityBuilds: CityBuildRegistry;
+    readonly cityGrowth: CityGrowthRegistry;
+    readonly cityImprovements: CityImprovementRegistry;
+    readonly cityNames: CityNameRegistry;
+    readonly civilizations: CivilizationRegistry;
+    readonly clients: ClientRegistry;
+    readonly currentPlayers: CurrentPlayerRegistry;
+    readonly generators: GeneratorRegistry;
+    readonly goodyHuts: GoodyHutRegistry;
+    readonly interactions: InteractionRegistry;
+    readonly landMasses: LandMassRegistry;
+    readonly layouts: LayoutRegistry;
+    readonly leaders: LeaderRegistry;
+    readonly pathFinders: PathFinderRegistry;
+    readonly pendingEffects: PendingEffectRegistry;
+    readonly playerGovernments: PlayerGovernmentRegistry;
+    readonly playerResearch: PlayerResearchRegistry;
+    readonly players: PlayerRegistry;
+    readonly playerTradeRates: PlayerTradeRatesRegistry;
+    readonly playerTreasuries: PlayerTreasuryRegistry;
+    readonly playerWorlds: PlayerWorldRegistry;
+    readonly rules: RuleRegistry;
+    readonly spaceships: SpaceshipRegistry;
+    readonly strategies: StrategyRegistry;
+    readonly strategyNotes: StrategyNoteRegistry;
+    readonly terrainFeatures: TerrainFeatureRegistry;
+    readonly terrains: TerrainRegistry;
+    readonly tileImprovements: TileImprovementRegistry;
+    readonly traits: TraitRegistry;
+    readonly transports: TransportRegistry;
+    readonly unitImprovements: UnitImprovementRegistry;
+    readonly units: UnitRegistry;
+    readonly wonders: WonderRegistry;
+    readonly workedTiles: WorkedTileRegistry;
+    readonly yields: YieldRegistry;
+    readonly engine: Engine;
+    readonly rng: IRng;
+    readonly turn: Turn;
+    readonly year: Year;
+    /**
+     * `adopted` lets a game take ownership of registries that already exist,
+     * which is what `defaultGame` uses to wrap the module singletons. Without it
+     * the two worlds would diverge: code still importing `instance` and code
+     * using `game.cities` would be looking at different registries, and the
+     * migration could not be done a package at a time.
+     *
+     * Constructed with no argument, a game gets its own of everything — which is
+     * the point of the exercise.
+     */
+    constructor(adopted?: Partial<GameSlots>);
+    /**
+     * Re-attach everything a hydrated entity did not get from the save.
+     *
+     * `stateKeys()` omits every transient field, so an entity rebuilt with
+     * `Object.assign(Object.create(Type.prototype), state)` arrives with those
+     * fields *absent* — not null, not empty, `undefined`. Three of the four
+     * categories below then misbehave, and one of them does so silently: a
+     * `Yield` whose `_valueCache` is `undefined` fails the `=== null` guard that
+     * would have recomputed it, so `value()` returns `undefined` and every yield
+     * in a loaded game reads empty with no error at all. Measured, and written
+     * up in `03-save-format.md`.
+     *
+     * Blunt tables rather than a clever field-name-to-slot mapping: there are
+     * twenty-six fields in total, they are greppable this way, and the
+     * assertion at the end is what actually keeps this honest as classes change.
+     */
+    /**
+     * Inject a whole hydration's worth of entities.
+     *
+     * Three sweeps, not one, because an `onHydrated` hook may read any other
+     * entity: `City`'s recomputes its fat cross, which asks the world for
+     * surrounding tiles, which needs the world's own injected generator. Injected
+     * one at a time, a city reached before its world threw inside the hook —
+     * after a load that had otherwise succeeded.
+     *
+     * The assertion runs last for the same reason: a transient field a hook
+     * fills is not missing until every hook has had its turn.
+     */
+    injectAll(entities: Iterable<DataObject>): void;
+    inject(entity: DataObject): void;
+    private fill;
+    /**
+     * For what a class has to put back itself.
+     *
+     * `PlayerTile` installs an accessor per registered `AdditionalData`,
+     * non-enumerable, so `stateKeys()` never saw them; `City` recomputes its fat
+     * cross; and `World` puts the registry back around its restored tiles,
+     * because `encode` writes a registry held as a field as a plain array and
+     * the class around a collection is the one thing the format cannot record.
+     *
+     * Those last two were found by playing a loaded game rather than by
+     * comparing its bytes — a save can round-trip perfectly and still restore a
+     * world whose `tiles()` returns an array iterator.
+     */
+    private hydrated;
+    /**
+     * The part that matters more than the tables. A field added to a `transient`
+     * declaration and not to this method leaves `undefined` behind, which is a
+     * wrong answer rather than an error — see `Yield` above. This turns it into
+     * a load failure naming the class and the field.
+     */
+    private assertInjected;
 }
 export default Game;
