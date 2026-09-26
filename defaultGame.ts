@@ -48,6 +48,8 @@ import { instance as unitImprovementsInstance } from '@civ-clone/core-unit-impro
 import { instance as unitsInstance } from '@civ-clone/core-unit/UnitRegistry';
 import { instance as wondersInstance } from '@civ-clone/core-wonder/WonderRegistry';
 import { instance as workedTilesInstance } from '@civ-clone/core-city/WorkedTileRegistry';
+import { instance as availableSpecialistsInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
+import { instance as specialistsInstance } from '@civ-clone/core-city/SpecialistRegistry';
 import { instance as yearInstance } from '@civ-clone/core-game-year/Year';
 import { instance as yieldsInstance } from '@civ-clone/core-yield/YieldRegistry';
 
@@ -80,6 +82,7 @@ export const defaultSlots: GameSlots = {
   availableGovernments: availableGovernmentsInstance,
   availableTerrainFeatures: availableTerrainFeaturesInstance,
   availableTileImprovements: availableTileImprovementsInstance,
+  availableSpecialists: availableSpecialistsInstance,
   availableTradeRates: availableTradeRatesInstance,
   availableUnitImprovements: availableUnitImprovementsInstance,
   cities: citiesInstance,
@@ -106,6 +109,7 @@ export const defaultSlots: GameSlots = {
   playerWorlds: playerWorldsInstance,
   rules: rulesInstance,
   spaceships: spaceshipsInstance,
+  specialists: specialistsInstance,
   strategies: strategiesInstance,
   strategyNotes: strategyNotesInstance,
   terrainFeatures: terrainFeaturesInstance,

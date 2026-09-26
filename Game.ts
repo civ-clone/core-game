@@ -50,6 +50,8 @@ import { UnitImprovementRegistry } from '@civ-clone/core-unit-improvement/UnitIm
 import { UnitRegistry } from '@civ-clone/core-unit/UnitRegistry';
 import { WonderRegistry } from '@civ-clone/core-wonder/WonderRegistry';
 import { WorkedTileRegistry } from '@civ-clone/core-city/WorkedTileRegistry';
+import { AvailableSpecialistRegistry } from '@civ-clone/core-city/AvailableSpecialistRegistry';
+import { SpecialistRegistry } from '@civ-clone/core-city/SpecialistRegistry';
 import { Year } from '@civ-clone/core-game-year/Year';
 import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
 
@@ -74,6 +76,7 @@ export type GameSlots = {
   attributes: AttributeRegistry;
   availableCityBuildItems: AvailableCityBuildItemsRegistry;
   availableGovernments: AvailableGovernmentRegistry;
+  availableSpecialists: AvailableSpecialistRegistry;
   availableTerrainFeatures: AvailableTerrainFeatureRegistry;
   availableTileImprovements: AvailableTileImprovementRegistry;
   availableTradeRates: AvailableTradeRateRegistry;
@@ -102,6 +105,7 @@ export type GameSlots = {
   playerWorlds: PlayerWorldRegistry;
   rules: RuleRegistry;
   spaceships: SpaceshipRegistry;
+  specialists: SpecialistRegistry;
   strategies: StrategyRegistry;
   strategyNotes: StrategyNoteRegistry;
   terrainFeatures: TerrainFeatureRegistry;
@@ -128,6 +132,7 @@ export class Game {
   readonly attributes: AttributeRegistry;
   readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
   readonly availableGovernments: AvailableGovernmentRegistry;
+  readonly availableSpecialists: AvailableSpecialistRegistry;
   readonly availableTerrainFeatures: AvailableTerrainFeatureRegistry;
   readonly availableTileImprovements: AvailableTileImprovementRegistry;
   readonly availableTradeRates: AvailableTradeRateRegistry;
@@ -156,6 +161,7 @@ export class Game {
   readonly playerWorlds: PlayerWorldRegistry;
   readonly rules: RuleRegistry;
   readonly spaceships: SpaceshipRegistry;
+  readonly specialists: SpecialistRegistry;
   readonly strategies: StrategyRegistry;
   readonly strategyNotes: StrategyNoteRegistry;
   readonly terrainFeatures: TerrainFeatureRegistry;
@@ -204,6 +210,8 @@ export class Game {
       adopted.availableCityBuildItems ?? new AvailableCityBuildItemsRegistry();
     this.availableGovernments =
       adopted.availableGovernments ?? new AvailableGovernmentRegistry();
+    this.availableSpecialists =
+      adopted.availableSpecialists ?? new AvailableSpecialistRegistry();
     this.availableTerrainFeatures =
       adopted.availableTerrainFeatures ?? new AvailableTerrainFeatureRegistry();
     this.availableTileImprovements =
@@ -242,6 +250,7 @@ export class Game {
       adopted.playerTreasuries ?? new PlayerTreasuryRegistry();
     this.playerWorlds = adopted.playerWorlds ?? new PlayerWorldRegistry();
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();
+    this.specialists = adopted.specialists ?? new SpecialistRegistry();
     this.strategies = adopted.strategies ?? new StrategyRegistry(this.rng);
     this.strategyNotes = adopted.strategyNotes ?? new StrategyNoteRegistry();
     this.terrainFeatures =
@@ -327,6 +336,7 @@ export class Game {
       _landMassRegistry: this.landMasses,
       _playerResearchRegistry: this.playerResearch,
       _playerTreasuryRegistry: this.playerTreasuries,
+      _specialistRegistry: this.specialists,
       // Two spellings of one thing, both present in the engine.
       _ruleRegistry: this.rules,
       _rulesRegistry: this.rules,
