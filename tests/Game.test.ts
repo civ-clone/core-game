@@ -5,8 +5,10 @@ import Player from '@civ-clone/core-player/Player';
 import { createRng } from '@civ-clone/core-random';
 import { defaultGame } from '../defaultGame';
 import { expect } from 'chai';
+import { instance as availableSpecialistRegistryInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
+import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
 
 describe('Game', (): void => {
   it('should give each game its own registries', (): void => {
@@ -17,6 +19,8 @@ describe('Game', (): void => {
     expect(a.units).to.not.equal(b.units);
     expect(a.rules).to.not.equal(b.rules);
     expect(a.players).to.not.equal(b.players);
+    expect(a.specialists).to.not.equal(b.specialists);
+    expect(a.availableSpecialists).to.not.equal(b.availableSpecialists);
   });
 
   it('should not let one game see another game`s entities', (): void => {
@@ -81,12 +85,20 @@ describe('Game', (): void => {
     // half-migrated engine quietly disagrees with itself.
     expect(defaultGame.cities).to.equal(cityRegistryInstance);
     expect(defaultGame.players).to.equal(playerRegistryInstance);
+    expect(defaultGame.specialists).to.equal(specialistRegistryInstance);
+    expect(defaultGame.availableSpecialists).to.equal(
+      availableSpecialistRegistryInstance
+    );
   });
 
   it('should keep `defaultGame` separate from a fresh game', (): void => {
     const fresh = new Game();
 
     expect(fresh.cities).to.not.equal(defaultGame.cities);
+    expect(fresh.specialists).to.not.equal(defaultGame.specialists);
+    expect(fresh.availableSpecialists).to.not.equal(
+      defaultGame.availableSpecialists
+    );
   });
 
   it('should wire the registries that need other slots', (): void => {
