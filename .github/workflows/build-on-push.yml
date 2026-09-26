@@ -23,4 +23,17 @@ jobs:
           --config.minimum-release-age=0
           --config.strict-dep-builds=false
       - run: npm run --if-present prettier:check
+      # Consumers load the committed .js and .d.ts, not the .ts, so a change
+      # that was never compiled would pass the tests below while shipping the
+      # old code. Rebuild and fail if anything generated differs from what is
+      # committed, or was never committed at all.
+      - run: npm run build
+      - run: |
+          git diff --exit-code -- '*.js' '*.d.ts' '*.js.map'
+          untracked="$(git ls-files --others --exclude-standard -- '*.js' '*.d.ts' '*.js.map')"
+          if [ -n "$untracked" ]; then
+            echo "Generated files not committed:"
+            echo "$untracked"
+            exit 1
+          fi
       - run: npm run --if-present test
