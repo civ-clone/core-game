@@ -51,6 +51,8 @@ const UnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/Unit
 const UnitRegistry_1 = require("@civ-clone/core-unit/UnitRegistry");
 const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
+const AvailableSpecialistRegistry_1 = require("@civ-clone/core-city/AvailableSpecialistRegistry");
+const SpecialistRegistry_1 = require("@civ-clone/core-city/SpecialistRegistry");
 const Year_1 = require("@civ-clone/core-game-year/Year");
 const YieldRegistry_1 = require("@civ-clone/core-yield/YieldRegistry");
 /**
@@ -82,6 +84,7 @@ exports.defaultSlots = {
     availableGovernments: AvailableGovernmentRegistry_1.instance,
     availableTerrainFeatures: AvailableTerrainFeatureRegistry_1.instance,
     availableTileImprovements: AvailableTileImprovementRegistry_1.instance,
+    availableSpecialists: AvailableSpecialistRegistry_1.instance,
     availableTradeRates: AvailableTradeRateRegistry_1.instance,
     availableUnitImprovements: AvailableUnitImprovementRegistry_1.instance,
     cities: CityRegistry_1.instance,
@@ -108,6 +111,7 @@ exports.defaultSlots = {
     playerWorlds: PlayerWorldRegistry_1.instance,
     rules: RuleRegistry_1.instance,
     spaceships: SpaceshipRegistry_1.instance,
+    specialists: SpecialistRegistry_1.instance,
     strategies: StrategyRegistry_1.instance,
     strategyNotes: StrategyNoteRegistry_1.instance,
     terrainFeatures: TerrainFeatureRegistry_1.instance,
