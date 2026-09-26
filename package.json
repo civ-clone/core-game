@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@civ-clone/core-ai-client": "^0.1.0",
-    "@civ-clone/core-city": "^0.1.0",
+    "@civ-clone/core-city": "^0.1.16",
     "@civ-clone/core-city-build": "^0.1.0",
     "@civ-clone/core-city-growth": "^0.1.0",
     "@civ-clone/core-city-improvement": "^0.1.0",
