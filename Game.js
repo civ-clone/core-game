@@ -202,7 +202,6 @@ class Game {
             _landMassRegistry: this.landMasses,
             _playerResearchRegistry: this.playerResearch,
             _playerTreasuryRegistry: this.playerTreasuries,
-            _specialistRegistry: this.specialists,
             // Two spellings of one thing, both present in the engine.
             _ruleRegistry: this.rules,
             _rulesRegistry: this.rules,
