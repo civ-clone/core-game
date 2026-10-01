@@ -340,6 +340,10 @@ export class Game {
       _ruleRegistry: this.rules,
       _rulesRegistry: this.rules,
       _turn: this.turn,
+      // `core-unit-transport`'s `Transport` mixin, on every ship that can carry
+      //  units: the manifests of what each carries, and the rules for stowing.
+      _transportRegistry: this.transports,
+      _transportRuleRegistry: this.rules,
       _unitRegistry: this.units,
       _workedTileRegistry: this.workedTiles,
       _year: this.year,

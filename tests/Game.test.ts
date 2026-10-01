@@ -134,6 +134,30 @@ describe('Game', (): void => {
     );
   });
 
+  it('should give a transport the game`s transport and rule registries', (): void => {
+    // `core-unit-transport`'s `Transport` mixin declares both transient. Before
+    // it did, a ship came back from a load holding plain arrays where the
+    // registries should be (civ-clone/web-renderer#228).
+    class Ship extends DataObject {
+      static readonly transient = [
+        '_id',
+        '_keys',
+        '_transportRegistry',
+        '_transportRuleRegistry',
+      ];
+      private _transportRegistry: object | null = null;
+      private _transportRuleRegistry: object | null = null;
+    }
+
+    const game = new Game();
+    const entity = Object.create(Ship.prototype);
+
+    game.inject(entity);
+
+    expect(entity._transportRegistry).to.equal(game.transports);
+    expect(entity._transportRuleRegistry).to.equal(game.rules);
+  });
+
   it('should fill a cache with its initialiser, not a registry', (): void => {
     // The three categories differ: a cache needs the value its own field
     // initialiser would have produced, because the lazy guard that recomputes
