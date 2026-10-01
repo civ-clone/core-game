@@ -109,7 +109,9 @@ describe('Game', (): void => {
 
     expect((game.workedTiles as any)._ruleRegistry).to.equal(game.rules);
     expect((game.cityNames as any)._randomNumberGenerator).to.equal(game.rng);
-    expect((game.strategies as any)._randomNumberGenerator).to.equal(game.rng);
+    // `StrategyRegistry` no longer keeps the generator it is given (core-strategy
+    // 0.1.6 orders ties by registration, not by a draw), so there is nothing of
+    // the game's to find on it.
   });
 
   it('should give each game its own ClassRegistry', (): void => {
