@@ -54,6 +54,7 @@ const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
 const AvailableSpecialistRegistry_1 = require("@civ-clone/core-city/AvailableSpecialistRegistry");
 const SpecialistRegistry_1 = require("@civ-clone/core-city/SpecialistRegistry");
+const TradeRouteRegistry_1 = require("@civ-clone/core-city/TradeRouteRegistry");
 const Year_1 = require("@civ-clone/core-game-year/Year");
 const YieldRegistry_1 = require("@civ-clone/core-yield/YieldRegistry");
 class Game {
@@ -68,7 +69,7 @@ class Game {
      * the point of the exercise.
      */
     constructor(adopted = {}) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29;
         // `Engine` is per-game too: it carries the event stream a game runs on, so
         // two games sharing one would each see the other's turns start.
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
@@ -133,15 +134,16 @@ class Game {
         this.terrains = (_20 = adopted.terrains) !== null && _20 !== void 0 ? _20 : new TerrainRegistry_1.TerrainRegistry();
         this.tileImprovements =
             (_21 = adopted.tileImprovements) !== null && _21 !== void 0 ? _21 : new TileImprovementRegistry_1.TileImprovementRegistry();
-        this.traits = (_22 = adopted.traits) !== null && _22 !== void 0 ? _22 : new TraitRegistry_1.TraitRegistry();
-        this.transports = (_23 = adopted.transports) !== null && _23 !== void 0 ? _23 : new TransportRegistry_1.TransportRegistry();
+        this.tradeRoutes = (_22 = adopted.tradeRoutes) !== null && _22 !== void 0 ? _22 : new TradeRouteRegistry_1.TradeRouteRegistry();
+        this.traits = (_23 = adopted.traits) !== null && _23 !== void 0 ? _23 : new TraitRegistry_1.TraitRegistry();
+        this.transports = (_24 = adopted.transports) !== null && _24 !== void 0 ? _24 : new TransportRegistry_1.TransportRegistry();
         this.unitImprovements =
-            (_24 = adopted.unitImprovements) !== null && _24 !== void 0 ? _24 : new UnitImprovementRegistry_1.UnitImprovementRegistry();
-        this.units = (_25 = adopted.units) !== null && _25 !== void 0 ? _25 : new UnitRegistry_1.UnitRegistry();
-        this.wonders = (_26 = adopted.wonders) !== null && _26 !== void 0 ? _26 : new WonderRegistry_1.WonderRegistry();
+            (_25 = adopted.unitImprovements) !== null && _25 !== void 0 ? _25 : new UnitImprovementRegistry_1.UnitImprovementRegistry();
+        this.units = (_26 = adopted.units) !== null && _26 !== void 0 ? _26 : new UnitRegistry_1.UnitRegistry();
+        this.wonders = (_27 = adopted.wonders) !== null && _27 !== void 0 ? _27 : new WonderRegistry_1.WonderRegistry();
         this.workedTiles =
-            (_27 = adopted.workedTiles) !== null && _27 !== void 0 ? _27 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
-        this.yields = (_28 = adopted.yields) !== null && _28 !== void 0 ? _28 : new YieldRegistry_1.YieldRegistry();
+            (_28 = adopted.workedTiles) !== null && _28 !== void 0 ? _28 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
+        this.yields = (_29 = adopted.yields) !== null && _29 !== void 0 ? _29 : new YieldRegistry_1.YieldRegistry();
     }
     /**
      * Re-attach everything a hydrated entity did not get from the save.

@@ -50,6 +50,7 @@ import { instance as wondersInstance } from '@civ-clone/core-wonder/WonderRegist
 import { instance as workedTilesInstance } from '@civ-clone/core-city/WorkedTileRegistry';
 import { instance as availableSpecialistsInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { instance as specialistsInstance } from '@civ-clone/core-city/SpecialistRegistry';
+import { instance as tradeRoutesInstance } from '@civ-clone/core-city/TradeRouteRegistry';
 import { instance as yearInstance } from '@civ-clone/core-game-year/Year';
 import { instance as yieldsInstance } from '@civ-clone/core-yield/YieldRegistry';
 
@@ -115,6 +116,7 @@ export const defaultSlots: GameSlots = {
   terrainFeatures: terrainFeaturesInstance,
   terrains: terrainsInstance,
   tileImprovements: tileImprovementsInstance,
+  tradeRoutes: tradeRoutesInstance,
   traits: traitsInstance,
   transports: transportsInstance,
   unitImprovements: unitImprovementsInstance,
