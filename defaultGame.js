@@ -53,6 +53,7 @@ const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
 const AvailableSpecialistRegistry_1 = require("@civ-clone/core-city/AvailableSpecialistRegistry");
 const SpecialistRegistry_1 = require("@civ-clone/core-city/SpecialistRegistry");
+const TradeRouteRegistry_1 = require("@civ-clone/core-city/TradeRouteRegistry");
 const Year_1 = require("@civ-clone/core-game-year/Year");
 const YieldRegistry_1 = require("@civ-clone/core-yield/YieldRegistry");
 /**
@@ -117,6 +118,7 @@ exports.defaultSlots = {
     terrainFeatures: TerrainFeatureRegistry_1.instance,
     terrains: TerrainRegistry_1.instance,
     tileImprovements: TileImprovementRegistry_1.instance,
+    tradeRoutes: TradeRouteRegistry_1.instance,
     traits: TraitRegistry_1.instance,
     transports: TransportRegistry_1.instance,
     unitImprovements: UnitImprovementRegistry_1.instance,

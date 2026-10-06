@@ -52,6 +52,7 @@ import { WonderRegistry } from '@civ-clone/core-wonder/WonderRegistry';
 import { WorkedTileRegistry } from '@civ-clone/core-city/WorkedTileRegistry';
 import { AvailableSpecialistRegistry } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { SpecialistRegistry } from '@civ-clone/core-city/SpecialistRegistry';
+import { TradeRouteRegistry } from '@civ-clone/core-city/TradeRouteRegistry';
 import { Year } from '@civ-clone/core-game-year/Year';
 import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
 
@@ -111,6 +112,7 @@ export type GameSlots = {
   terrainFeatures: TerrainFeatureRegistry;
   terrains: TerrainRegistry;
   tileImprovements: TileImprovementRegistry;
+  tradeRoutes: TradeRouteRegistry;
   traits: TraitRegistry;
   transports: TransportRegistry;
   unitImprovements: UnitImprovementRegistry;
@@ -167,6 +169,7 @@ export class Game {
   readonly terrainFeatures: TerrainFeatureRegistry;
   readonly terrains: TerrainRegistry;
   readonly tileImprovements: TileImprovementRegistry;
+  readonly tradeRoutes: TradeRouteRegistry;
   readonly traits: TraitRegistry;
   readonly transports: TransportRegistry;
   readonly unitImprovements: UnitImprovementRegistry;
@@ -258,6 +261,7 @@ export class Game {
     this.terrains = adopted.terrains ?? new TerrainRegistry();
     this.tileImprovements =
       adopted.tileImprovements ?? new TileImprovementRegistry();
+    this.tradeRoutes = adopted.tradeRoutes ?? new TradeRouteRegistry();
     this.traits = adopted.traits ?? new TraitRegistry();
     this.transports = adopted.transports ?? new TransportRegistry();
     this.unitImprovements =

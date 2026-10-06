@@ -50,6 +50,7 @@ import { WonderRegistry } from '@civ-clone/core-wonder/WonderRegistry';
 import { WorkedTileRegistry } from '@civ-clone/core-city/WorkedTileRegistry';
 import { AvailableSpecialistRegistry } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { SpecialistRegistry } from '@civ-clone/core-city/SpecialistRegistry';
+import { TradeRouteRegistry } from '@civ-clone/core-city/TradeRouteRegistry';
 import { Year } from '@civ-clone/core-game-year/Year';
 import { YieldRegistry } from '@civ-clone/core-yield/YieldRegistry';
 /**
@@ -108,6 +109,7 @@ export type GameSlots = {
   terrainFeatures: TerrainFeatureRegistry;
   terrains: TerrainRegistry;
   tileImprovements: TileImprovementRegistry;
+  tradeRoutes: TradeRouteRegistry;
   traits: TraitRegistry;
   transports: TransportRegistry;
   unitImprovements: UnitImprovementRegistry;
@@ -163,6 +165,7 @@ export declare class Game {
   readonly terrainFeatures: TerrainFeatureRegistry;
   readonly terrains: TerrainRegistry;
   readonly tileImprovements: TileImprovementRegistry;
+  readonly tradeRoutes: TradeRouteRegistry;
   readonly traits: TraitRegistry;
   readonly transports: TransportRegistry;
   readonly unitImprovements: UnitImprovementRegistry;
