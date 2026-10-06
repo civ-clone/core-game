@@ -9,6 +9,7 @@ import { instance as availableSpecialistRegistryInstance } from '@civ-clone/core
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
+import { instance as tradeRouteRegistryInstance } from '@civ-clone/core-city/TradeRouteRegistry';
 
 describe('Game', (): void => {
   it('should give each game its own registries', (): void => {
@@ -20,6 +21,7 @@ describe('Game', (): void => {
     expect(a.rules).to.not.equal(b.rules);
     expect(a.players).to.not.equal(b.players);
     expect(a.specialists).to.not.equal(b.specialists);
+    expect(a.tradeRoutes).to.not.equal(b.tradeRoutes);
     expect(a.availableSpecialists).to.not.equal(b.availableSpecialists);
   });
 
@@ -86,6 +88,7 @@ describe('Game', (): void => {
     expect(defaultGame.cities).to.equal(cityRegistryInstance);
     expect(defaultGame.players).to.equal(playerRegistryInstance);
     expect(defaultGame.specialists).to.equal(specialistRegistryInstance);
+    expect(defaultGame.tradeRoutes).to.equal(tradeRouteRegistryInstance);
     expect(defaultGame.availableSpecialists).to.equal(
       availableSpecialistRegistryInstance
     );
@@ -96,6 +99,7 @@ describe('Game', (): void => {
 
     expect(fresh.cities).to.not.equal(defaultGame.cities);
     expect(fresh.specialists).to.not.equal(defaultGame.specialists);
+    expect(fresh.tradeRoutes).to.not.equal(defaultGame.tradeRoutes);
     expect(fresh.availableSpecialists).to.not.equal(
       defaultGame.availableSpecialists
     );
