@@ -6,6 +6,7 @@ import { instance as aiClientsInstance } from '@civ-clone/core-ai-client/AIClien
 import { instance as classesInstance } from '@civ-clone/core-data-object/ClassRegistry';
 import { instance as attributesInstance } from '@civ-clone/core-civilization/AttributeRegistry';
 import { instance as availableCityBuildItemsInstance } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
+import { instance as availableDifficultiesInstance } from '@civ-clone/core-difficulty/AvailableDifficultyRegistry';
 import { instance as availableGovernmentsInstance } from '@civ-clone/core-government/AvailableGovernmentRegistry';
 import { instance as availableTerrainFeaturesInstance } from '@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry';
 import { instance as availableTileImprovementsInstance } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
@@ -19,6 +20,7 @@ import { instance as cityNamesInstance } from '@civ-clone/core-civilization/City
 import { instance as civilizationsInstance } from '@civ-clone/core-civilization/CivilizationRegistry';
 import { instance as clientsInstance } from '@civ-clone/core-client/ClientRegistry';
 import { instance as currentPlayersInstance } from '@civ-clone/core-player/CurrentPlayerRegistry';
+import { instance as difficultyInstance } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
 import { instance as generatorsInstance } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { instance as goodyHutsInstance } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
 import { instance as interactionsInstance } from '@civ-clone/core-diplomacy/InteractionRegistry';
@@ -80,6 +82,7 @@ export const defaultSlots: GameSlots = {
   attributes: attributesInstance,
   classes: classesInstance,
   availableCityBuildItems: availableCityBuildItemsInstance,
+  availableDifficulties: availableDifficultiesInstance,
   availableGovernments: availableGovernmentsInstance,
   availableTerrainFeatures: availableTerrainFeaturesInstance,
   availableTileImprovements: availableTileImprovementsInstance,
@@ -94,6 +97,7 @@ export const defaultSlots: GameSlots = {
   civilizations: civilizationsInstance,
   clients: clientsInstance,
   currentPlayers: currentPlayersInstance,
+  difficulty: difficultyInstance,
   generators: generatorsInstance,
   goodyHuts: goodyHutsInstance,
   interactions: interactionsInstance,

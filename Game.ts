@@ -7,6 +7,7 @@ import Generator from '@civ-clone/core-world-generator/Generator';
 import { AdvanceRegistry } from '@civ-clone/core-science/AdvanceRegistry';
 import { AttributeRegistry } from '@civ-clone/core-civilization/AttributeRegistry';
 import { AvailableCityBuildItemsRegistry } from '@civ-clone/core-city-build/AvailableCityBuildItemsRegistry';
+import { AvailableDifficultyRegistry } from '@civ-clone/core-difficulty/AvailableDifficultyRegistry';
 import { AvailableGovernmentRegistry } from '@civ-clone/core-government/AvailableGovernmentRegistry';
 import { AvailableTerrainFeatureRegistry } from '@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry';
 import { AvailableTileImprovementRegistry } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
@@ -20,6 +21,7 @@ import { CityRegistry } from '@civ-clone/core-city/CityRegistry';
 import { CivilizationRegistry } from '@civ-clone/core-civilization/CivilizationRegistry';
 import { ClientRegistry } from '@civ-clone/core-client/ClientRegistry';
 import { CurrentPlayerRegistry } from '@civ-clone/core-player/CurrentPlayerRegistry';
+import { GameDifficultyRegistry } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
 import { GeneratorRegistry } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { GoodyHutRegistry } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
 import { Engine } from '@civ-clone/core-engine/Engine';
@@ -76,6 +78,7 @@ export type GameSlots = {
   aiClients: AIClientRegistry;
   attributes: AttributeRegistry;
   availableCityBuildItems: AvailableCityBuildItemsRegistry;
+  availableDifficulties: AvailableDifficultyRegistry;
   availableGovernments: AvailableGovernmentRegistry;
   availableSpecialists: AvailableSpecialistRegistry;
   availableTerrainFeatures: AvailableTerrainFeatureRegistry;
@@ -90,6 +93,7 @@ export type GameSlots = {
   civilizations: CivilizationRegistry;
   clients: ClientRegistry;
   currentPlayers: CurrentPlayerRegistry;
+  difficulty: GameDifficultyRegistry;
   generators: GeneratorRegistry;
   goodyHuts: GoodyHutRegistry;
   interactions: InteractionRegistry;
@@ -133,6 +137,7 @@ export class Game {
   readonly aiClients: AIClientRegistry;
   readonly attributes: AttributeRegistry;
   readonly availableCityBuildItems: AvailableCityBuildItemsRegistry;
+  readonly availableDifficulties: AvailableDifficultyRegistry;
   readonly availableGovernments: AvailableGovernmentRegistry;
   readonly availableSpecialists: AvailableSpecialistRegistry;
   readonly availableTerrainFeatures: AvailableTerrainFeatureRegistry;
@@ -147,6 +152,7 @@ export class Game {
   readonly civilizations: CivilizationRegistry;
   readonly clients: ClientRegistry;
   readonly currentPlayers: CurrentPlayerRegistry;
+  readonly difficulty: GameDifficultyRegistry;
   readonly generators: GeneratorRegistry;
   readonly goodyHuts: GoodyHutRegistry;
   readonly interactions: InteractionRegistry;
@@ -211,6 +217,8 @@ export class Game {
     this.attributes = adopted.attributes ?? new AttributeRegistry();
     this.availableCityBuildItems =
       adopted.availableCityBuildItems ?? new AvailableCityBuildItemsRegistry();
+    this.availableDifficulties =
+      adopted.availableDifficulties ?? new AvailableDifficultyRegistry();
     this.availableGovernments =
       adopted.availableGovernments ?? new AvailableGovernmentRegistry();
     this.availableSpecialists =
@@ -234,6 +242,7 @@ export class Game {
     this.civilizations = adopted.civilizations ?? new CivilizationRegistry();
     this.clients = adopted.clients ?? new ClientRegistry();
     this.currentPlayers = adopted.currentPlayers ?? new CurrentPlayerRegistry();
+    this.difficulty = adopted.difficulty ?? new GameDifficultyRegistry();
     this.generators = adopted.generators ?? new GeneratorRegistry();
     this.goodyHuts = adopted.goodyHuts ?? new GoodyHutRegistry();
     this.interactions = adopted.interactions ?? new InteractionRegistry();

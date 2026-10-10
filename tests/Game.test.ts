@@ -5,7 +5,9 @@ import Player from '@civ-clone/core-player/Player';
 import { createRng } from '@civ-clone/core-random';
 import { defaultGame } from '../defaultGame';
 import { expect } from 'chai';
+import { instance as availableDifficultyRegistryInstance } from '@civ-clone/core-difficulty/AvailableDifficultyRegistry';
 import { instance as availableSpecialistRegistryInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
+import { instance as gameDifficultyRegistryInstance } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
@@ -23,6 +25,8 @@ describe('Game', (): void => {
     expect(a.specialists).to.not.equal(b.specialists);
     expect(a.tradeRoutes).to.not.equal(b.tradeRoutes);
     expect(a.availableSpecialists).to.not.equal(b.availableSpecialists);
+    expect(a.difficulty).to.not.equal(b.difficulty);
+    expect(a.availableDifficulties).to.not.equal(b.availableDifficulties);
   });
 
   it('should not let one game see another game`s entities', (): void => {
@@ -91,6 +95,10 @@ describe('Game', (): void => {
     expect(defaultGame.tradeRoutes).to.equal(tradeRouteRegistryInstance);
     expect(defaultGame.availableSpecialists).to.equal(
       availableSpecialistRegistryInstance
+    );
+    expect(defaultGame.difficulty).to.equal(gameDifficultyRegistryInstance);
+    expect(defaultGame.availableDifficulties).to.equal(
+      availableDifficultyRegistryInstance
     );
   });
 
