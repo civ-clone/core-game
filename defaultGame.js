@@ -9,6 +9,7 @@ const AIClientRegistry_1 = require("@civ-clone/core-ai-client/AIClientRegistry")
 const ClassRegistry_1 = require("@civ-clone/core-data-object/ClassRegistry");
 const AttributeRegistry_1 = require("@civ-clone/core-civilization/AttributeRegistry");
 const AvailableCityBuildItemsRegistry_1 = require("@civ-clone/core-city-build/AvailableCityBuildItemsRegistry");
+const AvailableDifficultyRegistry_1 = require("@civ-clone/core-difficulty/AvailableDifficultyRegistry");
 const AvailableGovernmentRegistry_1 = require("@civ-clone/core-government/AvailableGovernmentRegistry");
 const AvailableTerrainFeatureRegistry_1 = require("@civ-clone/core-terrain-feature/AvailableTerrainFeatureRegistry");
 const AvailableTileImprovementRegistry_1 = require("@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry");
@@ -22,6 +23,7 @@ const CityNameRegistry_1 = require("@civ-clone/core-civilization/CityNameRegistr
 const CivilizationRegistry_1 = require("@civ-clone/core-civilization/CivilizationRegistry");
 const ClientRegistry_1 = require("@civ-clone/core-client/ClientRegistry");
 const CurrentPlayerRegistry_1 = require("@civ-clone/core-player/CurrentPlayerRegistry");
+const GameDifficultyRegistry_1 = require("@civ-clone/core-difficulty/GameDifficultyRegistry");
 const GeneratorRegistry_1 = require("@civ-clone/core-world-generator/GeneratorRegistry");
 const GoodyHutRegistry_1 = require("@civ-clone/core-goody-hut/GoodyHutRegistry");
 const InteractionRegistry_1 = require("@civ-clone/core-diplomacy/InteractionRegistry");
@@ -82,6 +84,7 @@ exports.defaultSlots = {
     attributes: AttributeRegistry_1.instance,
     classes: ClassRegistry_1.instance,
     availableCityBuildItems: AvailableCityBuildItemsRegistry_1.instance,
+    availableDifficulties: AvailableDifficultyRegistry_1.instance,
     availableGovernments: AvailableGovernmentRegistry_1.instance,
     availableTerrainFeatures: AvailableTerrainFeatureRegistry_1.instance,
     availableTileImprovements: AvailableTileImprovementRegistry_1.instance,
@@ -96,6 +99,7 @@ exports.defaultSlots = {
     civilizations: CivilizationRegistry_1.instance,
     clients: ClientRegistry_1.instance,
     currentPlayers: CurrentPlayerRegistry_1.instance,
+    difficulty: GameDifficultyRegistry_1.instance,
     generators: GeneratorRegistry_1.instance,
     goodyHuts: GoodyHutRegistry_1.instance,
     interactions: InteractionRegistry_1.instance,
