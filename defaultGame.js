@@ -24,6 +24,7 @@ const CivilizationRegistry_1 = require("@civ-clone/core-civilization/Civilizatio
 const ClientRegistry_1 = require("@civ-clone/core-client/ClientRegistry");
 const CurrentPlayerRegistry_1 = require("@civ-clone/core-player/CurrentPlayerRegistry");
 const GameDifficultyRegistry_1 = require("@civ-clone/core-difficulty/GameDifficultyRegistry");
+const GameResultRegistry_1 = require("@civ-clone/core-turn-based-game/GameResultRegistry");
 const GeneratorRegistry_1 = require("@civ-clone/core-world-generator/GeneratorRegistry");
 const GoodyHutRegistry_1 = require("@civ-clone/core-goody-hut/GoodyHutRegistry");
 const InteractionRegistry_1 = require("@civ-clone/core-diplomacy/InteractionRegistry");
@@ -101,6 +102,7 @@ exports.defaultSlots = {
     clients: ClientRegistry_1.instance,
     currentPlayers: CurrentPlayerRegistry_1.instance,
     difficulty: GameDifficultyRegistry_1.instance,
+    gameResult: GameResultRegistry_1.instance,
     generators: GeneratorRegistry_1.instance,
     goodyHuts: GoodyHutRegistry_1.instance,
     interactions: InteractionRegistry_1.instance,

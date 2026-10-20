@@ -20,6 +20,7 @@ import { CivilizationRegistry } from '@civ-clone/core-civilization/CivilizationR
 import { ClientRegistry } from '@civ-clone/core-client/ClientRegistry';
 import { CurrentPlayerRegistry } from '@civ-clone/core-player/CurrentPlayerRegistry';
 import { GameDifficultyRegistry } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
+import { GameResultRegistry } from '@civ-clone/core-turn-based-game/GameResultRegistry';
 import { GeneratorRegistry } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { GoodyHutRegistry } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
 import { Engine } from '@civ-clone/core-engine/Engine';
@@ -92,6 +93,7 @@ export type GameSlots = {
   clients: ClientRegistry;
   currentPlayers: CurrentPlayerRegistry;
   difficulty: GameDifficultyRegistry;
+  gameResult: GameResultRegistry;
   generators: GeneratorRegistry;
   goodyHuts: GoodyHutRegistry;
   interactions: InteractionRegistry;
@@ -151,6 +153,7 @@ export declare class Game {
   readonly clients: ClientRegistry;
   readonly currentPlayers: CurrentPlayerRegistry;
   readonly difficulty: GameDifficultyRegistry;
+  readonly gameResult: GameResultRegistry;
   readonly generators: GeneratorRegistry;
   readonly goodyHuts: GoodyHutRegistry;
   readonly interactions: InteractionRegistry;
