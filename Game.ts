@@ -52,6 +52,7 @@ import { UnitImprovementRegistry } from '@civ-clone/core-unit-improvement/UnitIm
 import { UnitRegistry } from '@civ-clone/core-unit/UnitRegistry';
 import { WonderRegistry } from '@civ-clone/core-wonder/WonderRegistry';
 import { WorkedTileRegistry } from '@civ-clone/core-city/WorkedTileRegistry';
+import { WorldPeaceRegistry } from '@civ-clone/core-score/WorldPeaceRegistry';
 import { AvailableSpecialistRegistry } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { SpecialistRegistry } from '@civ-clone/core-city/SpecialistRegistry';
 import { TradeRouteRegistry } from '@civ-clone/core-city/TradeRouteRegistry';
@@ -123,6 +124,7 @@ export type GameSlots = {
   units: UnitRegistry;
   wonders: WonderRegistry;
   workedTiles: WorkedTileRegistry;
+  worldPeace: WorldPeaceRegistry;
   yields: YieldRegistry;
   engine: Engine;
   rng: IRng;
@@ -182,6 +184,7 @@ export class Game {
   readonly units: UnitRegistry;
   readonly wonders: WonderRegistry;
   readonly workedTiles: WorkedTileRegistry;
+  readonly worldPeace: WorldPeaceRegistry;
   readonly yields: YieldRegistry;
   readonly engine: Engine;
   readonly rng: IRng;
@@ -279,6 +282,7 @@ export class Game {
     this.wonders = adopted.wonders ?? new WonderRegistry();
     this.workedTiles =
       adopted.workedTiles ?? new WorkedTileRegistry(this.rules);
+    this.worldPeace = adopted.worldPeace ?? new WorldPeaceRegistry();
     this.yields = adopted.yields ?? new YieldRegistry();
   }
 
