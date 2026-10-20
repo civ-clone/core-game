@@ -8,6 +8,7 @@ import { expect } from 'chai';
 import { instance as availableDifficultyRegistryInstance } from '@civ-clone/core-difficulty/AvailableDifficultyRegistry';
 import { instance as availableSpecialistRegistryInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { instance as gameDifficultyRegistryInstance } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
+import { instance as gameResultRegistryInstance } from '@civ-clone/core-turn-based-game/GameResultRegistry';
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
@@ -27,6 +28,7 @@ describe('Game', (): void => {
     expect(a.tradeRoutes).to.not.equal(b.tradeRoutes);
     expect(a.availableSpecialists).to.not.equal(b.availableSpecialists);
     expect(a.difficulty).to.not.equal(b.difficulty);
+    expect(a.gameResult).to.not.equal(b.gameResult);
     expect(a.availableDifficulties).to.not.equal(b.availableDifficulties);
     expect(a.worldPeace).to.not.equal(b.worldPeace);
   });
@@ -99,6 +101,7 @@ describe('Game', (): void => {
       availableSpecialistRegistryInstance
     );
     expect(defaultGame.difficulty).to.equal(gameDifficultyRegistryInstance);
+    expect(defaultGame.gameResult).to.equal(gameResultRegistryInstance);
     expect(defaultGame.availableDifficulties).to.equal(
       availableDifficultyRegistryInstance
     );

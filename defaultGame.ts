@@ -21,6 +21,7 @@ import { instance as civilizationsInstance } from '@civ-clone/core-civilization/
 import { instance as clientsInstance } from '@civ-clone/core-client/ClientRegistry';
 import { instance as currentPlayersInstance } from '@civ-clone/core-player/CurrentPlayerRegistry';
 import { instance as difficultyInstance } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
+import { instance as gameResultInstance } from '@civ-clone/core-turn-based-game/GameResultRegistry';
 import { instance as generatorsInstance } from '@civ-clone/core-world-generator/GeneratorRegistry';
 import { instance as goodyHutsInstance } from '@civ-clone/core-goody-hut/GoodyHutRegistry';
 import { instance as interactionsInstance } from '@civ-clone/core-diplomacy/InteractionRegistry';
@@ -99,6 +100,7 @@ export const defaultSlots: GameSlots = {
   clients: clientsInstance,
   currentPlayers: currentPlayersInstance,
   difficulty: difficultyInstance,
+  gameResult: gameResultInstance,
   generators: generatorsInstance,
   goodyHuts: goodyHutsInstance,
   interactions: interactionsInstance,
