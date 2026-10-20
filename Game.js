@@ -54,6 +54,7 @@ const UnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/Unit
 const UnitRegistry_1 = require("@civ-clone/core-unit/UnitRegistry");
 const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
+const WorldPeaceRegistry_1 = require("@civ-clone/core-score/WorldPeaceRegistry");
 const AvailableSpecialistRegistry_1 = require("@civ-clone/core-city/AvailableSpecialistRegistry");
 const SpecialistRegistry_1 = require("@civ-clone/core-city/SpecialistRegistry");
 const TradeRouteRegistry_1 = require("@civ-clone/core-city/TradeRouteRegistry");
@@ -71,7 +72,7 @@ class Game {
      * the point of the exercise.
      */
     constructor(adopted = {}) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32;
         // `Engine` is per-game too: it carries the event stream a game runs on, so
         // two games sharing one would each see the other's turns start.
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
@@ -148,7 +149,8 @@ class Game {
         this.wonders = (_29 = adopted.wonders) !== null && _29 !== void 0 ? _29 : new WonderRegistry_1.WonderRegistry();
         this.workedTiles =
             (_30 = adopted.workedTiles) !== null && _30 !== void 0 ? _30 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
-        this.yields = (_31 = adopted.yields) !== null && _31 !== void 0 ? _31 : new YieldRegistry_1.YieldRegistry();
+        this.worldPeace = (_31 = adopted.worldPeace) !== null && _31 !== void 0 ? _31 : new WorldPeaceRegistry_1.WorldPeaceRegistry();
+        this.yields = (_32 = adopted.yields) !== null && _32 !== void 0 ? _32 : new YieldRegistry_1.YieldRegistry();
     }
     /**
      * Re-attach everything a hydrated entity did not get from the save.

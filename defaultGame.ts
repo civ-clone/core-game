@@ -50,6 +50,7 @@ import { instance as unitImprovementsInstance } from '@civ-clone/core-unit-impro
 import { instance as unitsInstance } from '@civ-clone/core-unit/UnitRegistry';
 import { instance as wondersInstance } from '@civ-clone/core-wonder/WonderRegistry';
 import { instance as workedTilesInstance } from '@civ-clone/core-city/WorkedTileRegistry';
+import { instance as worldPeaceInstance } from '@civ-clone/core-score/WorldPeaceRegistry';
 import { instance as availableSpecialistsInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { instance as specialistsInstance } from '@civ-clone/core-city/SpecialistRegistry';
 import { instance as tradeRoutesInstance } from '@civ-clone/core-city/TradeRouteRegistry';
@@ -127,6 +128,7 @@ export const defaultSlots: GameSlots = {
   units: unitsInstance,
   wonders: wondersInstance,
   workedTiles: workedTilesInstance,
+  worldPeace: worldPeaceInstance,
   yields: yieldsInstance,
   engine: engineInstance,
   rng: rngInstance,

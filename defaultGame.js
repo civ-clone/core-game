@@ -53,6 +53,7 @@ const UnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/Unit
 const UnitRegistry_1 = require("@civ-clone/core-unit/UnitRegistry");
 const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
+const WorldPeaceRegistry_1 = require("@civ-clone/core-score/WorldPeaceRegistry");
 const AvailableSpecialistRegistry_1 = require("@civ-clone/core-city/AvailableSpecialistRegistry");
 const SpecialistRegistry_1 = require("@civ-clone/core-city/SpecialistRegistry");
 const TradeRouteRegistry_1 = require("@civ-clone/core-city/TradeRouteRegistry");
@@ -129,6 +130,7 @@ exports.defaultSlots = {
     units: UnitRegistry_1.instance,
     wonders: WonderRegistry_1.instance,
     workedTiles: WorkedTileRegistry_1.instance,
+    worldPeace: WorldPeaceRegistry_1.instance,
     yields: YieldRegistry_1.instance,
     engine: Engine_1.instance,
     rng: core_random_1.instance,
