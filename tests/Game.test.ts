@@ -2,6 +2,7 @@ import { DataObject } from '@civ-clone/core-data-object/DataObject';
 import { Game } from '../Game';
 import City from '@civ-clone/core-city/City';
 import Player from '@civ-clone/core-player/Player';
+import World from '@civ-clone/core-world/World';
 import { createRng } from '@civ-clone/core-random';
 import { defaultGame } from '../defaultGame';
 import { expect } from 'chai';
@@ -192,5 +193,77 @@ describe('Game', (): void => {
     new Game().inject(entity);
 
     expect(entity._valueCache).to.equal(null);
+  });
+
+  describe('a loaded World`s generator', (): void => {
+    // What `core-save-game`'s hydrator hands `inject`: a `World` made without
+    // its constructor, holding only its saved state. `inject` throws if it
+    // leaves a transient field `undefined`.
+    const loadedWorld = (state: { [field: string]: unknown }): World => {
+      const world: World = Object.assign(Object.create(World.prototype), {
+        _id: 'world-1',
+        _keys: ['height', 'tiles', 'width'],
+        _tiles: [],
+        ...state,
+      });
+
+      new Game().inject(world as unknown as DataObject);
+
+      return world;
+    };
+
+    const generatorOf = (world: World): any => (world as any)._generator;
+
+    it('should be on the grid the world saved', (): void => {
+      const world = loadedWorld({
+          _height: 6,
+          _topologyId: 'hex-odd-r',
+          _width: 8,
+        }),
+        generator = generatorOf(world),
+        topology = world.topology();
+
+      expect(world.topologyId()).to.equal('hex-odd-r');
+      expect(generator.topology().id()).to.equal('hex-odd-r');
+      expect(generator.height()).to.equal(6);
+      expect(generator.width()).to.equal(8);
+
+      // The generator's geometry is the world's: six neighbours, the same
+      // ones, wrapping at the world's own edges.
+      const [x, y] = [0, 1],
+        expected = topology
+          .edgeDirections()
+          .map((direction) => topology.neighbour(x, y, direction)!)
+          .map(([nx, ny]) => generator.coordsToIndex(nx, ny));
+
+      expect(expected).to.have.lengthOf(6);
+      expect(generator.getNeighbours(generator.coordsToIndex(x, y))).to.eql(
+        expected
+      );
+    });
+
+    it('should be square for a world saved before topology ids', (): void => {
+      // No `_topologyId`: `onHydrated` makes the world square after `inject`
+      // has filled the generator, which must agree.
+      const world = loadedWorld({ _height: 5, _width: 7 });
+
+      expect(world.topologyId()).to.equal('square');
+      expect(generatorOf(world).topology().id()).to.equal('square');
+      expect(generatorOf(world).height()).to.equal(5);
+      expect(generatorOf(world).width()).to.equal(7);
+      expect(generatorOf(world).getNeighbours(0)).to.have.lengthOf(4);
+    });
+
+    it('should leave no transient field of the world undefined', (): void => {
+      const world = loadedWorld({
+        _height: 6,
+        _topologyId: 'hex-odd-r',
+        _width: 8,
+      });
+
+      World.transient.forEach((field: string): void => {
+        expect((world as any)[field], field).to.not.equal(undefined);
+      });
+    });
   });
 });
