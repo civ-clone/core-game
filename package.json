@@ -64,8 +64,8 @@
     "@civ-clone/core-unit-improvement": "^0.1.0",
     "@civ-clone/core-unit-transport": "^0.1.0",
     "@civ-clone/core-wonder": "^0.1.0",
-    "@civ-clone/core-world": "^0.1.0",
-    "@civ-clone/core-world-generator": "^0.1.0",
+    "@civ-clone/core-world": "^0.1.21",
+    "@civ-clone/core-world-generator": "^0.1.7",
     "@civ-clone/core-world-path": "^0.1.0",
     "@civ-clone/core-yield": "^0.1.0"
   }

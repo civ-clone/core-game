@@ -250,13 +250,20 @@ class Game {
             },
             // `World` never exposes its generator and uses it for two things:
             // `generate()`, which a loaded world never calls, and `coordsToIndex`
-            // in `get(x, y)`. Every geometry method is a pure function of height and
-            // width, both of which are saved state, so a plain `Generator` built
-            // from them is exact. The original's class and options matter only for
-            // regenerating.
+            // in `get(x, y)`, which depends only on the height and width. The
+            // generator's geometry (`getNeighbours`, `distanceFrom`) also depends on
+            // the grid, which the world saves as its topology id, so a plain
+            // `Generator` built from the saved height, width and topology id agrees
+            // with the world it belongs to. The original's class and other options
+            // matter only for regenerating.
+            //
+            // All three are read from the restored fields. `World.onHydrated`, which
+            // gives a world saved before topology ids were recorded its `'square'`,
+            // has not run yet, so such a world has no id here: it was square, so its
+            // generator is made square too.
             _generator: () => {
-                var _a, _b;
-                return new Generator_1.default((_a = target._height) !== null && _a !== void 0 ? _a : 0, (_b = target._width) !== null && _b !== void 0 ? _b : 0);
+                var _a, _b, _c;
+                return new Generator_1.default((_a = target._height) !== null && _a !== void 0 ? _a : 0, (_b = target._width) !== null && _b !== void 0 ? _b : 0, { topologyId: (_c = target._topologyId) !== null && _c !== void 0 ? _c : 'square' });
             },
         };
         saveable.allTransient().forEach((field) => {
