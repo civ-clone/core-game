@@ -272,9 +272,16 @@ export class Game {
       adopted.playerTreasuries ?? new PlayerTreasuryRegistry();
     this.playerWorlds = adopted.playerWorlds ?? new PlayerWorldRegistry();
     // Its entries' rules go into this game's rules, so the two always belong to the same game: an adopted pair is
-    //  adopted together (see `defaultGame`), and a fresh game gets a fresh pair (civ-clone/web-renderer#37).
+    //  adopted together (see `defaultGame`), a fresh game gets a fresh pair, and one adopted without its rules is
+    //  refused, as it would make another game's rules (civ-clone/web-renderer#37).
     this.requirements =
       adopted.requirements ?? new RequirementRegistry(this.rules);
+
+    if (this.requirements.ruleRegistry() !== this.rules) {
+      throw new Error(
+        "A game's requirements must make its own rules: adopt `requirements` together with the `rules` it was built with."
+      );
+    }
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();
     this.specialists = adopted.specialists ?? new SpecialistRegistry();
     this.strategies = adopted.strategies ?? new StrategyRegistry(this.rng);

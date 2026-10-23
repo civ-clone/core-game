@@ -101,7 +101,7 @@ describe('Game', (): void => {
     // And the two adopted together, so `defaultGame`'s requirements make `defaultGame`'s rules.
     expect(defaultGame.requirements).to.equal(requirementRegistryInstance);
     expect(defaultGame.rules).to.equal(ruleRegistryInstance);
-    expect((defaultGame.requirements as any)._rules).to.equal(
+    expect(defaultGame.requirements.ruleRegistry()).to.equal(
       ruleRegistryInstance
     );
     expect(defaultGame.specialists).to.equal(specialistRegistryInstance);
@@ -135,11 +135,23 @@ describe('Game', (): void => {
     const game = new Game();
 
     expect((game.workedTiles as any)._ruleRegistry).to.equal(game.rules);
-    expect((game.requirements as any)._rules).to.equal(game.rules);
+    expect(game.requirements.ruleRegistry()).to.equal(game.rules);
     expect((game.cityNames as any)._randomNumberGenerator).to.equal(game.rng);
     // `StrategyRegistry` no longer keeps the generator it is given (core-strategy
     // 0.1.6 orders ties by registration, not by a draw), so there is nothing of
     // the game's to find on it.
+  });
+
+  it('should refuse requirements adopted without the rules they make', (): void => {
+    const other = new Game();
+
+    expect(() => new Game({ requirements: other.requirements })).to.throw(
+      /adopt `requirements` together with the `rules`/
+    );
+    expect(
+      new Game({ requirements: other.requirements, rules: other.rules })
+        .requirements
+    ).to.equal(other.requirements);
   });
 
   it('should give each game its own ClassRegistry', (): void => {
