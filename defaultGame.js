@@ -40,6 +40,7 @@ const PlayerTreasuryRegistry_1 = require("@civ-clone/core-treasury/PlayerTreasur
 const PlayerWorldRegistry_1 = require("@civ-clone/core-player-world/PlayerWorldRegistry");
 const PlayerRegistry_1 = require("@civ-clone/core-player/PlayerRegistry");
 const core_random_1 = require("@civ-clone/core-random");
+const RequirementRegistry_1 = require("@civ-clone/core-requirement/RequirementRegistry");
 const RuleRegistry_1 = require("@civ-clone/core-rule/RuleRegistry");
 const SpaceshipRegistry_1 = require("@civ-clone/core-spaceship/SpaceshipRegistry");
 const StrategyRegistry_1 = require("@civ-clone/core-strategy/StrategyRegistry");
@@ -117,6 +118,7 @@ exports.defaultSlots = {
     playerTradeRates: PlayerTradeRatesRegistry_1.instance,
     playerTreasuries: PlayerTreasuryRegistry_1.instance,
     playerWorlds: PlayerWorldRegistry_1.instance,
+    requirements: RequirementRegistry_1.instance,
     rules: RuleRegistry_1.instance,
     spaceships: SpaceshipRegistry_1.instance,
     specialists: SpecialistRegistry_1.instance,

@@ -41,6 +41,7 @@ const PlayerResearchRegistry_1 = require("@civ-clone/core-science/PlayerResearch
 const PlayerTradeRatesRegistry_1 = require("@civ-clone/core-trade-rate/PlayerTradeRatesRegistry");
 const PlayerTreasuryRegistry_1 = require("@civ-clone/core-treasury/PlayerTreasuryRegistry");
 const PlayerWorldRegistry_1 = require("@civ-clone/core-player-world/PlayerWorldRegistry");
+const RequirementRegistry_1 = require("@civ-clone/core-requirement/RequirementRegistry");
 const RuleRegistry_1 = require("@civ-clone/core-rule/RuleRegistry");
 const SpaceshipRegistry_1 = require("@civ-clone/core-spaceship/SpaceshipRegistry");
 const StrategyNoteRegistry_1 = require("@civ-clone/core-strategy/StrategyNoteRegistry");
@@ -73,7 +74,7 @@ class Game {
      * the point of the exercise.
      */
     constructor(adopted = {}) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34;
         // `Engine` is per-game too: it carries the event stream a game runs on, so
         // two games sharing one would each see the other's turns start.
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
@@ -133,26 +134,30 @@ class Game {
         this.playerTreasuries =
             (_16 = adopted.playerTreasuries) !== null && _16 !== void 0 ? _16 : new PlayerTreasuryRegistry_1.PlayerTreasuryRegistry();
         this.playerWorlds = (_17 = adopted.playerWorlds) !== null && _17 !== void 0 ? _17 : new PlayerWorldRegistry_1.PlayerWorldRegistry();
-        this.spaceships = (_18 = adopted.spaceships) !== null && _18 !== void 0 ? _18 : new SpaceshipRegistry_1.SpaceshipRegistry();
-        this.specialists = (_19 = adopted.specialists) !== null && _19 !== void 0 ? _19 : new SpecialistRegistry_1.SpecialistRegistry();
-        this.strategies = (_20 = adopted.strategies) !== null && _20 !== void 0 ? _20 : new StrategyRegistry_1.StrategyRegistry(this.rng);
-        this.strategyNotes = (_21 = adopted.strategyNotes) !== null && _21 !== void 0 ? _21 : new StrategyNoteRegistry_1.StrategyNoteRegistry();
+        // Its entries' rules go into this game's rules, so the two always belong to the same game: an adopted pair is
+        //  adopted together (see `defaultGame`), and a fresh game gets a fresh pair (civ-clone/web-renderer#37).
+        this.requirements =
+            (_18 = adopted.requirements) !== null && _18 !== void 0 ? _18 : new RequirementRegistry_1.RequirementRegistry(this.rules);
+        this.spaceships = (_19 = adopted.spaceships) !== null && _19 !== void 0 ? _19 : new SpaceshipRegistry_1.SpaceshipRegistry();
+        this.specialists = (_20 = adopted.specialists) !== null && _20 !== void 0 ? _20 : new SpecialistRegistry_1.SpecialistRegistry();
+        this.strategies = (_21 = adopted.strategies) !== null && _21 !== void 0 ? _21 : new StrategyRegistry_1.StrategyRegistry(this.rng);
+        this.strategyNotes = (_22 = adopted.strategyNotes) !== null && _22 !== void 0 ? _22 : new StrategyNoteRegistry_1.StrategyNoteRegistry();
         this.terrainFeatures =
-            (_22 = adopted.terrainFeatures) !== null && _22 !== void 0 ? _22 : new TerrainFeatureRegistry_1.TerrainFeatureRegistry();
-        this.terrains = (_23 = adopted.terrains) !== null && _23 !== void 0 ? _23 : new TerrainRegistry_1.TerrainRegistry();
+            (_23 = adopted.terrainFeatures) !== null && _23 !== void 0 ? _23 : new TerrainFeatureRegistry_1.TerrainFeatureRegistry();
+        this.terrains = (_24 = adopted.terrains) !== null && _24 !== void 0 ? _24 : new TerrainRegistry_1.TerrainRegistry();
         this.tileImprovements =
-            (_24 = adopted.tileImprovements) !== null && _24 !== void 0 ? _24 : new TileImprovementRegistry_1.TileImprovementRegistry();
-        this.tradeRoutes = (_25 = adopted.tradeRoutes) !== null && _25 !== void 0 ? _25 : new TradeRouteRegistry_1.TradeRouteRegistry();
-        this.traits = (_26 = adopted.traits) !== null && _26 !== void 0 ? _26 : new TraitRegistry_1.TraitRegistry();
-        this.transports = (_27 = adopted.transports) !== null && _27 !== void 0 ? _27 : new TransportRegistry_1.TransportRegistry();
+            (_25 = adopted.tileImprovements) !== null && _25 !== void 0 ? _25 : new TileImprovementRegistry_1.TileImprovementRegistry();
+        this.tradeRoutes = (_26 = adopted.tradeRoutes) !== null && _26 !== void 0 ? _26 : new TradeRouteRegistry_1.TradeRouteRegistry();
+        this.traits = (_27 = adopted.traits) !== null && _27 !== void 0 ? _27 : new TraitRegistry_1.TraitRegistry();
+        this.transports = (_28 = adopted.transports) !== null && _28 !== void 0 ? _28 : new TransportRegistry_1.TransportRegistry();
         this.unitImprovements =
-            (_28 = adopted.unitImprovements) !== null && _28 !== void 0 ? _28 : new UnitImprovementRegistry_1.UnitImprovementRegistry();
-        this.units = (_29 = adopted.units) !== null && _29 !== void 0 ? _29 : new UnitRegistry_1.UnitRegistry();
-        this.wonders = (_30 = adopted.wonders) !== null && _30 !== void 0 ? _30 : new WonderRegistry_1.WonderRegistry();
+            (_29 = adopted.unitImprovements) !== null && _29 !== void 0 ? _29 : new UnitImprovementRegistry_1.UnitImprovementRegistry();
+        this.units = (_30 = adopted.units) !== null && _30 !== void 0 ? _30 : new UnitRegistry_1.UnitRegistry();
+        this.wonders = (_31 = adopted.wonders) !== null && _31 !== void 0 ? _31 : new WonderRegistry_1.WonderRegistry();
         this.workedTiles =
-            (_31 = adopted.workedTiles) !== null && _31 !== void 0 ? _31 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
-        this.worldPeace = (_32 = adopted.worldPeace) !== null && _32 !== void 0 ? _32 : new WorldPeaceRegistry_1.WorldPeaceRegistry();
-        this.yields = (_33 = adopted.yields) !== null && _33 !== void 0 ? _33 : new YieldRegistry_1.YieldRegistry();
+            (_32 = adopted.workedTiles) !== null && _32 !== void 0 ? _32 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
+        this.worldPeace = (_33 = adopted.worldPeace) !== null && _33 !== void 0 ? _33 : new WorldPeaceRegistry_1.WorldPeaceRegistry();
+        this.yields = (_34 = adopted.yields) !== null && _34 !== void 0 ? _34 : new YieldRegistry_1.YieldRegistry();
     }
     /**
      * Re-attach everything a hydrated entity did not get from the save.
