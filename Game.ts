@@ -39,6 +39,7 @@ import { PlayerResearchRegistry } from '@civ-clone/core-science/PlayerResearchRe
 import { PlayerTradeRatesRegistry } from '@civ-clone/core-trade-rate/PlayerTradeRatesRegistry';
 import { PlayerTreasuryRegistry } from '@civ-clone/core-treasury/PlayerTreasuryRegistry';
 import { PlayerWorldRegistry } from '@civ-clone/core-player-world/PlayerWorldRegistry';
+import { RequirementRegistry } from '@civ-clone/core-requirement/RequirementRegistry';
 import { RuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
 import { SpaceshipRegistry } from '@civ-clone/core-spaceship/SpaceshipRegistry';
 import { StrategyNoteRegistry } from '@civ-clone/core-strategy/StrategyNoteRegistry';
@@ -111,6 +112,7 @@ export type GameSlots = {
   playerTradeRates: PlayerTradeRatesRegistry;
   playerTreasuries: PlayerTreasuryRegistry;
   playerWorlds: PlayerWorldRegistry;
+  requirements: RequirementRegistry;
   rules: RuleRegistry;
   spaceships: SpaceshipRegistry;
   specialists: SpecialistRegistry;
@@ -172,6 +174,7 @@ export class Game {
   readonly playerTradeRates: PlayerTradeRatesRegistry;
   readonly playerTreasuries: PlayerTreasuryRegistry;
   readonly playerWorlds: PlayerWorldRegistry;
+  readonly requirements: RequirementRegistry;
   readonly rules: RuleRegistry;
   readonly spaceships: SpaceshipRegistry;
   readonly specialists: SpecialistRegistry;
@@ -268,6 +271,10 @@ export class Game {
     this.playerTreasuries =
       adopted.playerTreasuries ?? new PlayerTreasuryRegistry();
     this.playerWorlds = adopted.playerWorlds ?? new PlayerWorldRegistry();
+    // Its entries' rules go into this game's rules, so the two always belong to the same game: an adopted pair is
+    //  adopted together (see `defaultGame`), and a fresh game gets a fresh pair (civ-clone/web-renderer#37).
+    this.requirements =
+      adopted.requirements ?? new RequirementRegistry(this.rules);
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();
     this.specialists = adopted.specialists ?? new SpecialistRegistry();
     this.strategies = adopted.strategies ?? new StrategyRegistry(this.rng);

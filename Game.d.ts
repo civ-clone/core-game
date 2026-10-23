@@ -37,6 +37,7 @@ import { PlayerResearchRegistry } from '@civ-clone/core-science/PlayerResearchRe
 import { PlayerTradeRatesRegistry } from '@civ-clone/core-trade-rate/PlayerTradeRatesRegistry';
 import { PlayerTreasuryRegistry } from '@civ-clone/core-treasury/PlayerTreasuryRegistry';
 import { PlayerWorldRegistry } from '@civ-clone/core-player-world/PlayerWorldRegistry';
+import { RequirementRegistry } from '@civ-clone/core-requirement/RequirementRegistry';
 import { RuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
 import { SpaceshipRegistry } from '@civ-clone/core-spaceship/SpaceshipRegistry';
 import { StrategyNoteRegistry } from '@civ-clone/core-strategy/StrategyNoteRegistry';
@@ -108,6 +109,7 @@ export type GameSlots = {
   playerTradeRates: PlayerTradeRatesRegistry;
   playerTreasuries: PlayerTreasuryRegistry;
   playerWorlds: PlayerWorldRegistry;
+  requirements: RequirementRegistry;
   rules: RuleRegistry;
   spaceships: SpaceshipRegistry;
   specialists: SpecialistRegistry;
@@ -168,6 +170,7 @@ export declare class Game {
   readonly playerTradeRates: PlayerTradeRatesRegistry;
   readonly playerTreasuries: PlayerTreasuryRegistry;
   readonly playerWorlds: PlayerWorldRegistry;
+  readonly requirements: RequirementRegistry;
   readonly rules: RuleRegistry;
   readonly spaceships: SpaceshipRegistry;
   readonly specialists: SpecialistRegistry;

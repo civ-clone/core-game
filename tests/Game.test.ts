@@ -12,6 +12,8 @@ import { instance as gameDifficultyRegistryInstance } from '@civ-clone/core-diff
 import { instance as gameResultRegistryInstance } from '@civ-clone/core-turn-based-game/GameResultRegistry';
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
+import { instance as requirementRegistryInstance } from '@civ-clone/core-requirement/RequirementRegistry';
+import { instance as ruleRegistryInstance } from '@civ-clone/core-rule/RuleRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
 import { instance as tradeRouteRegistryInstance } from '@civ-clone/core-city/TradeRouteRegistry';
 import { instance as worldPeaceRegistryInstance } from '@civ-clone/core-score/WorldPeaceRegistry';
@@ -96,6 +98,12 @@ describe('Game', (): void => {
     // half-migrated engine quietly disagrees with itself.
     expect(defaultGame.cities).to.equal(cityRegistryInstance);
     expect(defaultGame.players).to.equal(playerRegistryInstance);
+    // And the two adopted together, so `defaultGame`'s requirements make `defaultGame`'s rules.
+    expect(defaultGame.requirements).to.equal(requirementRegistryInstance);
+    expect(defaultGame.rules).to.equal(ruleRegistryInstance);
+    expect((defaultGame.requirements as any)._rules).to.equal(
+      ruleRegistryInstance
+    );
     expect(defaultGame.specialists).to.equal(specialistRegistryInstance);
     expect(defaultGame.tradeRoutes).to.equal(tradeRouteRegistryInstance);
     expect(defaultGame.availableSpecialists).to.equal(
@@ -127,6 +135,7 @@ describe('Game', (): void => {
     const game = new Game();
 
     expect((game.workedTiles as any)._ruleRegistry).to.equal(game.rules);
+    expect((game.requirements as any)._rules).to.equal(game.rules);
     expect((game.cityNames as any)._randomNumberGenerator).to.equal(game.rng);
     // `StrategyRegistry` no longer keeps the generator it is given (core-strategy
     // 0.1.6 orders ties by registration, not by a draw), so there is nothing of
