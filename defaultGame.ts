@@ -49,6 +49,7 @@ import { instance as traitsInstance } from '@civ-clone/core-civilization/TraitRe
 import { instance as transportsInstance } from '@civ-clone/core-unit-transport/TransportRegistry';
 import { instance as turnInstance } from '@civ-clone/core-turn-based-game/Turn';
 import { instance as unitImprovementsInstance } from '@civ-clone/core-unit-improvement/UnitImprovementRegistry';
+import { instance as unitLossesInstance } from '@civ-clone/core-unit/UnitLossRegistry';
 import { instance as unitsInstance } from '@civ-clone/core-unit/UnitRegistry';
 import { instance as wondersInstance } from '@civ-clone/core-wonder/WonderRegistry';
 import { instance as workedTilesInstance } from '@civ-clone/core-city/WorkedTileRegistry';
@@ -129,6 +130,7 @@ export const defaultSlots: GameSlots = {
   traits: traitsInstance,
   transports: transportsInstance,
   unitImprovements: unitImprovementsInstance,
+  unitLosses: unitLossesInstance,
   units: unitsInstance,
   wonders: wondersInstance,
   workedTiles: workedTilesInstance,

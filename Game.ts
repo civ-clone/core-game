@@ -51,6 +51,7 @@ import { TraitRegistry } from '@civ-clone/core-civilization/TraitRegistry';
 import { TransportRegistry } from '@civ-clone/core-unit-transport/TransportRegistry';
 import { Turn } from '@civ-clone/core-turn-based-game/Turn';
 import { UnitImprovementRegistry } from '@civ-clone/core-unit-improvement/UnitImprovementRegistry';
+import { UnitLossRegistry } from '@civ-clone/core-unit/UnitLossRegistry';
 import { UnitRegistry } from '@civ-clone/core-unit/UnitRegistry';
 import { WonderRegistry } from '@civ-clone/core-wonder/WonderRegistry';
 import { WorkedTileRegistry } from '@civ-clone/core-city/WorkedTileRegistry';
@@ -125,6 +126,7 @@ export type GameSlots = {
   traits: TraitRegistry;
   transports: TransportRegistry;
   unitImprovements: UnitImprovementRegistry;
+  unitLosses: UnitLossRegistry;
   units: UnitRegistry;
   wonders: WonderRegistry;
   workedTiles: WorkedTileRegistry;
@@ -187,6 +189,7 @@ export class Game {
   readonly traits: TraitRegistry;
   readonly transports: TransportRegistry;
   readonly unitImprovements: UnitImprovementRegistry;
+  readonly unitLosses: UnitLossRegistry;
   readonly units: UnitRegistry;
   readonly wonders: WonderRegistry;
   readonly workedTiles: WorkedTileRegistry;
@@ -296,6 +299,7 @@ export class Game {
     this.transports = adopted.transports ?? new TransportRegistry();
     this.unitImprovements =
       adopted.unitImprovements ?? new UnitImprovementRegistry();
+    this.unitLosses = adopted.unitLosses ?? new UnitLossRegistry();
     this.units = adopted.units ?? new UnitRegistry();
     this.wonders = adopted.wonders ?? new WonderRegistry();
     this.workedTiles =
