@@ -52,6 +52,7 @@ const TraitRegistry_1 = require("@civ-clone/core-civilization/TraitRegistry");
 const TransportRegistry_1 = require("@civ-clone/core-unit-transport/TransportRegistry");
 const Turn_1 = require("@civ-clone/core-turn-based-game/Turn");
 const UnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/UnitImprovementRegistry");
+const UnitLossRegistry_1 = require("@civ-clone/core-unit/UnitLossRegistry");
 const UnitRegistry_1 = require("@civ-clone/core-unit/UnitRegistry");
 const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
@@ -131,6 +132,7 @@ exports.defaultSlots = {
     traits: TraitRegistry_1.instance,
     transports: TransportRegistry_1.instance,
     unitImprovements: UnitImprovementRegistry_1.instance,
+    unitLosses: UnitLossRegistry_1.instance,
     units: UnitRegistry_1.instance,
     wonders: WonderRegistry_1.instance,
     workedTiles: WorkedTileRegistry_1.instance,

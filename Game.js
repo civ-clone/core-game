@@ -53,6 +53,7 @@ const TraitRegistry_1 = require("@civ-clone/core-civilization/TraitRegistry");
 const TransportRegistry_1 = require("@civ-clone/core-unit-transport/TransportRegistry");
 const Turn_1 = require("@civ-clone/core-turn-based-game/Turn");
 const UnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/UnitImprovementRegistry");
+const UnitLossRegistry_1 = require("@civ-clone/core-unit/UnitLossRegistry");
 const UnitRegistry_1 = require("@civ-clone/core-unit/UnitRegistry");
 const WonderRegistry_1 = require("@civ-clone/core-wonder/WonderRegistry");
 const WorkedTileRegistry_1 = require("@civ-clone/core-city/WorkedTileRegistry");
@@ -74,7 +75,7 @@ class Game {
      * the point of the exercise.
      */
     constructor(adopted = {}) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34, _35;
         // `Engine` is per-game too: it carries the event stream a game runs on, so
         // two games sharing one would each see the other's turns start.
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
@@ -156,12 +157,13 @@ class Game {
         this.transports = (_28 = adopted.transports) !== null && _28 !== void 0 ? _28 : new TransportRegistry_1.TransportRegistry();
         this.unitImprovements =
             (_29 = adopted.unitImprovements) !== null && _29 !== void 0 ? _29 : new UnitImprovementRegistry_1.UnitImprovementRegistry();
-        this.units = (_30 = adopted.units) !== null && _30 !== void 0 ? _30 : new UnitRegistry_1.UnitRegistry();
-        this.wonders = (_31 = adopted.wonders) !== null && _31 !== void 0 ? _31 : new WonderRegistry_1.WonderRegistry();
+        this.unitLosses = (_30 = adopted.unitLosses) !== null && _30 !== void 0 ? _30 : new UnitLossRegistry_1.UnitLossRegistry();
+        this.units = (_31 = adopted.units) !== null && _31 !== void 0 ? _31 : new UnitRegistry_1.UnitRegistry();
+        this.wonders = (_32 = adopted.wonders) !== null && _32 !== void 0 ? _32 : new WonderRegistry_1.WonderRegistry();
         this.workedTiles =
-            (_32 = adopted.workedTiles) !== null && _32 !== void 0 ? _32 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
-        this.worldPeace = (_33 = adopted.worldPeace) !== null && _33 !== void 0 ? _33 : new WorldPeaceRegistry_1.WorldPeaceRegistry();
-        this.yields = (_34 = adopted.yields) !== null && _34 !== void 0 ? _34 : new YieldRegistry_1.YieldRegistry();
+            (_33 = adopted.workedTiles) !== null && _33 !== void 0 ? _33 : new WorkedTileRegistry_1.WorkedTileRegistry(this.rules);
+        this.worldPeace = (_34 = adopted.worldPeace) !== null && _34 !== void 0 ? _34 : new WorldPeaceRegistry_1.WorldPeaceRegistry();
+        this.yields = (_35 = adopted.yields) !== null && _35 !== void 0 ? _35 : new YieldRegistry_1.YieldRegistry();
     }
     /**
      * Re-attach everything a hydrated entity did not get from the save.

@@ -16,6 +16,7 @@ import { instance as requirementRegistryInstance } from '@civ-clone/core-require
 import { instance as ruleRegistryInstance } from '@civ-clone/core-rule/RuleRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
 import { instance as tradeRouteRegistryInstance } from '@civ-clone/core-city/TradeRouteRegistry';
+import { instance as unitLossRegistryInstance } from '@civ-clone/core-unit/UnitLossRegistry';
 import { instance as worldPeaceRegistryInstance } from '@civ-clone/core-score/WorldPeaceRegistry';
 
 describe('Game', (): void => {
@@ -34,6 +35,7 @@ describe('Game', (): void => {
     expect(a.gameResult).to.not.equal(b.gameResult);
     expect(a.availableDifficulties).to.not.equal(b.availableDifficulties);
     expect(a.worldPeace).to.not.equal(b.worldPeace);
+    expect(a.unitLosses).to.not.equal(b.unitLosses);
   });
 
   it('should not let one game see another game`s entities', (): void => {
@@ -115,6 +117,7 @@ describe('Game', (): void => {
       availableDifficultyRegistryInstance
     );
     expect(defaultGame.worldPeace).to.equal(worldPeaceRegistryInstance);
+    expect(defaultGame.unitLosses).to.equal(unitLossRegistryInstance);
   });
 
   it('should keep `defaultGame` separate from a fresh game', (): void => {
