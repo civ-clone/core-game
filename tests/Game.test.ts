@@ -172,6 +172,15 @@ describe('Game', (): void => {
     ).to.equal(other.ruleSets);
   });
 
+  it('should take the rule sets its rules already have, when given the rules alone', (): void => {
+    const other = new Game();
+
+    expect(new Game({ rules: other.rules }).ruleSets).to.equal(other.ruleSets);
+    expect(new Game({ rules: defaultGame.rules }).ruleSets).to.equal(
+      ruleSetRegistryInstance
+    );
+  });
+
   it('should give each game its own ClassRegistry', (): void => {
     const a = new Game();
     const b = new Game();

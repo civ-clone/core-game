@@ -145,8 +145,10 @@ class Game {
             throw new Error("A game's requirements must make its own rules: adopt `requirements` together with the `rules` it was built with.");
         }
         // The named groups of this game's rules, and what has been chosen in them (civ-clone/web-renderer#158). It switches
-        //  the rules it was built with, so the pair is adopted together, as `requirements` is.
-        this.ruleSets = (_19 = adopted.ruleSets) !== null && _19 !== void 0 ? _19 : new RuleSetRegistry_1.RuleSetRegistry(this.rules);
+        //  the rules it was built with, so the pair belongs together, as `requirements` does: given `rules` alone, a game
+        //  takes the rule sets those rules already have (`of`), and not an empty registry of its own beside them, which
+        //  would know none of the sets the packages registered.
+        this.ruleSets = (_19 = adopted.ruleSets) !== null && _19 !== void 0 ? _19 : RuleSetRegistry_1.RuleSetRegistry.of(this.rules);
         if (this.ruleSets.ruleRegistry() !== this.rules) {
             throw new Error("A game's rule sets must switch its own rules: adopt `ruleSets` together with the `rules` it was built with.");
         }

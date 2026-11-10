@@ -290,14 +290,17 @@ export class Game {
     }
 
     // The named groups of this game's rules, and what has been chosen in them (civ-clone/web-renderer#158). It switches
-    //  the rules it was built with, so the pair is adopted together, as `requirements` is.
-    this.ruleSets = adopted.ruleSets ?? new RuleSetRegistry(this.rules);
+    //  the rules it was built with, so the pair belongs together, as `requirements` does: given `rules` alone, a game
+    //  takes the rule sets those rules already have (`of`), and not an empty registry of its own beside them, which
+    //  would know none of the sets the packages registered.
+    this.ruleSets = adopted.ruleSets ?? RuleSetRegistry.of(this.rules);
 
     if (this.ruleSets.ruleRegistry() !== this.rules) {
       throw new Error(
         "A game's rule sets must switch its own rules: adopt `ruleSets` together with the `rules` it was built with."
       );
     }
+
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();
     this.specialists = adopted.specialists ?? new SpecialistRegistry();
     this.strategies = adopted.strategies ?? new StrategyRegistry(this.rng);
