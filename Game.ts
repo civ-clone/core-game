@@ -13,6 +13,7 @@ import { AvailableTerrainFeatureRegistry } from '@civ-clone/core-terrain-feature
 import { AvailableTileImprovementRegistry } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
 import { AvailableUnitImprovementRegistry } from '@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry';
 import { AvailableTradeRateRegistry } from '@civ-clone/core-trade-rate/AvailableTradeRateRegistry';
+import { BuildPreferencesRegistry } from '@civ-clone/core-city-build/BuildPreferencesRegistry';
 import { CityBuildRegistry } from '@civ-clone/core-city-build/CityBuildRegistry';
 import { CityGrowthRegistry } from '@civ-clone/core-city-growth/CityGrowthRegistry';
 import { CityImprovementRegistry } from '@civ-clone/core-city-improvement/CityImprovementRegistry';
@@ -90,6 +91,7 @@ export type GameSlots = {
   availableTileImprovements: AvailableTileImprovementRegistry;
   availableTradeRates: AvailableTradeRateRegistry;
   availableUnitImprovements: AvailableUnitImprovementRegistry;
+  buildPreferences: BuildPreferencesRegistry;
   cities: CityRegistry;
   cityBuilds: CityBuildRegistry;
   cityGrowth: CityGrowthRegistry;
@@ -154,6 +156,9 @@ export class Game {
   readonly availableTileImprovements: AvailableTileImprovementRegistry;
   readonly availableTradeRates: AvailableTradeRateRegistry;
   readonly availableUnitImprovements: AvailableUnitImprovementRegistry;
+  // What each player has asked their cities to choose by themselves (civ-clone/web-renderer#873), a game's own like its
+  //  builds: a client's options, sent each session, so not saved.
+  readonly buildPreferences: BuildPreferencesRegistry;
   readonly cities: CityRegistry;
   readonly cityBuilds: CityBuildRegistry;
   readonly cityGrowth: CityGrowthRegistry;
@@ -248,6 +253,8 @@ export class Game {
       new AvailableUnitImprovementRegistry();
     this.availableTradeRates =
       adopted.availableTradeRates ?? new AvailableTradeRateRegistry();
+    this.buildPreferences =
+      adopted.buildPreferences ?? new BuildPreferencesRegistry();
     this.cities = adopted.cities ?? new CityRegistry();
     this.cityBuilds = adopted.cityBuilds ?? new CityBuildRegistry();
     this.cityGrowth = adopted.cityGrowth ?? new CityGrowthRegistry();

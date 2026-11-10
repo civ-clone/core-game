@@ -13,6 +13,7 @@ import { instance as availableTileImprovementsInstance } from '@civ-clone/core-t
 import { instance as availableUnitImprovementsInstance } from '@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry';
 import { instance as availableTradeRatesInstance } from '@civ-clone/core-trade-rate/AvailableTradeRateRegistry';
 import { instance as citiesInstance } from '@civ-clone/core-city/CityRegistry';
+import { instance as buildPreferencesInstance } from '@civ-clone/core-city-build/BuildPreferencesRegistry';
 import { instance as cityBuildsInstance } from '@civ-clone/core-city-build/CityBuildRegistry';
 import { instance as cityGrowthInstance } from '@civ-clone/core-city-growth/CityGrowthRegistry';
 import { instance as cityImprovementsInstance } from '@civ-clone/core-city-improvement/CityImprovementRegistry';
@@ -94,6 +95,7 @@ export const defaultSlots: GameSlots = {
   availableSpecialists: availableSpecialistsInstance,
   availableTradeRates: availableTradeRatesInstance,
   availableUnitImprovements: availableUnitImprovementsInstance,
+  buildPreferences: buildPreferencesInstance,
   cities: citiesInstance,
   cityBuilds: cityBuildsInstance,
   cityGrowth: cityGrowthInstance,
