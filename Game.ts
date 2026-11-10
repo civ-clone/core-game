@@ -41,6 +41,7 @@ import { PlayerTreasuryRegistry } from '@civ-clone/core-treasury/PlayerTreasuryR
 import { PlayerWorldRegistry } from '@civ-clone/core-player-world/PlayerWorldRegistry';
 import { RequirementRegistry } from '@civ-clone/core-requirement/RequirementRegistry';
 import { RuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
+import { RuleSetRegistry } from '@civ-clone/core-rule/RuleSetRegistry';
 import { SpaceshipRegistry } from '@civ-clone/core-spaceship/SpaceshipRegistry';
 import { StrategyNoteRegistry } from '@civ-clone/core-strategy/StrategyNoteRegistry';
 import { StrategyRegistry } from '@civ-clone/core-strategy/StrategyRegistry';
@@ -115,6 +116,7 @@ export type GameSlots = {
   playerWorlds: PlayerWorldRegistry;
   requirements: RequirementRegistry;
   rules: RuleRegistry;
+  ruleSets: RuleSetRegistry;
   spaceships: SpaceshipRegistry;
   specialists: SpecialistRegistry;
   strategies: StrategyRegistry;
@@ -178,6 +180,7 @@ export class Game {
   readonly playerWorlds: PlayerWorldRegistry;
   readonly requirements: RequirementRegistry;
   readonly rules: RuleRegistry;
+  readonly ruleSets: RuleSetRegistry;
   readonly spaceships: SpaceshipRegistry;
   readonly specialists: SpecialistRegistry;
   readonly strategies: StrategyRegistry;
@@ -285,6 +288,19 @@ export class Game {
         "A game's requirements must make its own rules: adopt `requirements` together with the `rules` it was built with."
       );
     }
+
+    // The named groups of this game's rules, and what has been chosen in them (civ-clone/web-renderer#158). It switches
+    //  the rules it was built with, so the pair belongs together, as `requirements` does: given `rules` alone, a game
+    //  takes the rule sets those rules already have (`of`), and not an empty registry of its own beside them, which
+    //  would know none of the sets the packages registered.
+    this.ruleSets = adopted.ruleSets ?? RuleSetRegistry.of(this.rules);
+
+    if (this.ruleSets.ruleRegistry() !== this.rules) {
+      throw new Error(
+        "A game's rule sets must switch its own rules: adopt `ruleSets` together with the `rules` it was built with."
+      );
+    }
+
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();
     this.specialists = adopted.specialists ?? new SpecialistRegistry();
     this.strategies = adopted.strategies ?? new StrategyRegistry(this.rng);
