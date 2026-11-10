@@ -14,6 +14,7 @@ import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegis
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as requirementRegistryInstance } from '@civ-clone/core-requirement/RequirementRegistry';
 import { instance as ruleRegistryInstance } from '@civ-clone/core-rule/RuleRegistry';
+import { instance as ruleSetRegistryInstance } from '@civ-clone/core-rule/RuleSetRegistry';
 import { instance as specialistRegistryInstance } from '@civ-clone/core-city/SpecialistRegistry';
 import { instance as tradeRouteRegistryInstance } from '@civ-clone/core-city/TradeRouteRegistry';
 import { instance as unitLossRegistryInstance } from '@civ-clone/core-unit/UnitLossRegistry';
@@ -106,6 +107,8 @@ describe('Game', (): void => {
     expect(defaultGame.requirements.ruleRegistry()).to.equal(
       ruleRegistryInstance
     );
+    expect(defaultGame.ruleSets).to.equal(ruleSetRegistryInstance);
+    expect(defaultGame.ruleSets.ruleRegistry()).to.equal(ruleRegistryInstance);
     expect(defaultGame.specialists).to.equal(specialistRegistryInstance);
     expect(defaultGame.tradeRoutes).to.equal(tradeRouteRegistryInstance);
     expect(defaultGame.availableSpecialists).to.equal(
@@ -139,6 +142,7 @@ describe('Game', (): void => {
 
     expect((game.workedTiles as any)._ruleRegistry).to.equal(game.rules);
     expect(game.requirements.ruleRegistry()).to.equal(game.rules);
+    expect(game.ruleSets.ruleRegistry()).to.equal(game.rules);
     expect((game.cityNames as any)._randomNumberGenerator).to.equal(game.rng);
     // `StrategyRegistry` no longer keeps the generator it is given (core-strategy
     // 0.1.6 orders ties by registration, not by a draw), so there is nothing of
@@ -155,6 +159,17 @@ describe('Game', (): void => {
       new Game({ requirements: other.requirements, rules: other.rules })
         .requirements
     ).to.equal(other.requirements);
+  });
+
+  it('should refuse rule sets adopted without the rules they switch', (): void => {
+    const other = new Game();
+
+    expect(() => new Game({ ruleSets: other.ruleSets })).to.throw(
+      /adopt `ruleSets` together with the `rules`/
+    );
+    expect(
+      new Game({ ruleSets: other.ruleSets, rules: other.rules }).ruleSets
+    ).to.equal(other.ruleSets);
   });
 
   it('should give each game its own ClassRegistry', (): void => {

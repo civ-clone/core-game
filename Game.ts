@@ -41,6 +41,7 @@ import { PlayerTreasuryRegistry } from '@civ-clone/core-treasury/PlayerTreasuryR
 import { PlayerWorldRegistry } from '@civ-clone/core-player-world/PlayerWorldRegistry';
 import { RequirementRegistry } from '@civ-clone/core-requirement/RequirementRegistry';
 import { RuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
+import { RuleSetRegistry } from '@civ-clone/core-rule/RuleSetRegistry';
 import { SpaceshipRegistry } from '@civ-clone/core-spaceship/SpaceshipRegistry';
 import { StrategyNoteRegistry } from '@civ-clone/core-strategy/StrategyNoteRegistry';
 import { StrategyRegistry } from '@civ-clone/core-strategy/StrategyRegistry';
@@ -115,6 +116,7 @@ export type GameSlots = {
   playerWorlds: PlayerWorldRegistry;
   requirements: RequirementRegistry;
   rules: RuleRegistry;
+  ruleSets: RuleSetRegistry;
   spaceships: SpaceshipRegistry;
   specialists: SpecialistRegistry;
   strategies: StrategyRegistry;
@@ -178,6 +180,7 @@ export class Game {
   readonly playerWorlds: PlayerWorldRegistry;
   readonly requirements: RequirementRegistry;
   readonly rules: RuleRegistry;
+  readonly ruleSets: RuleSetRegistry;
   readonly spaceships: SpaceshipRegistry;
   readonly specialists: SpecialistRegistry;
   readonly strategies: StrategyRegistry;
@@ -283,6 +286,16 @@ export class Game {
     if (this.requirements.ruleRegistry() !== this.rules) {
       throw new Error(
         "A game's requirements must make its own rules: adopt `requirements` together with the `rules` it was built with."
+      );
+    }
+
+    // The named groups of this game's rules, and what has been chosen in them (civ-clone/web-renderer#158). It switches
+    //  the rules it was built with, so the pair is adopted together, as `requirements` is.
+    this.ruleSets = adopted.ruleSets ?? new RuleSetRegistry(this.rules);
+
+    if (this.ruleSets.ruleRegistry() !== this.rules) {
+      throw new Error(
+        "A game's rule sets must switch its own rules: adopt `ruleSets` together with the `rules` it was built with."
       );
     }
     this.spaceships = adopted.spaceships ?? new SpaceshipRegistry();

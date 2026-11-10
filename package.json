@@ -50,7 +50,7 @@
     "@civ-clone/core-player-world": "^0.1.0",
     "@civ-clone/core-random": "^0.1.0",
     "@civ-clone/core-requirement": "^0.1.1",
-    "@civ-clone/core-rule": "^0.1.0",
+    "@civ-clone/core-rule": "^0.1.7",
     "@civ-clone/core-score": "^0.1.0",
     "@civ-clone/core-science": "^0.1.0",
     "@civ-clone/core-spaceship": "^0.1.0",

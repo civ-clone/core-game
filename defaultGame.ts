@@ -38,6 +38,7 @@ import { instance as playerWorldsInstance } from '@civ-clone/core-player-world/P
 import { instance as playersInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as rngInstance } from '@civ-clone/core-random';
 import { instance as requirementsInstance } from '@civ-clone/core-requirement/RequirementRegistry';
+import { instance as ruleSetsInstance } from '@civ-clone/core-rule/RuleSetRegistry';
 import { instance as rulesInstance } from '@civ-clone/core-rule/RuleRegistry';
 import { instance as spaceshipsInstance } from '@civ-clone/core-spaceship/SpaceshipRegistry';
 import { instance as strategiesInstance } from '@civ-clone/core-strategy/StrategyRegistry';
@@ -119,6 +120,7 @@ export const defaultSlots: GameSlots = {
   playerWorlds: playerWorldsInstance,
   requirements: requirementsInstance,
   rules: rulesInstance,
+  ruleSets: ruleSetsInstance,
   spaceships: spaceshipsInstance,
   specialists: specialistsInstance,
   strategies: strategiesInstance,
