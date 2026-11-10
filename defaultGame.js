@@ -16,6 +16,7 @@ const AvailableTileImprovementRegistry_1 = require("@civ-clone/core-tile-improve
 const AvailableUnitImprovementRegistry_1 = require("@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry");
 const AvailableTradeRateRegistry_1 = require("@civ-clone/core-trade-rate/AvailableTradeRateRegistry");
 const CityRegistry_1 = require("@civ-clone/core-city/CityRegistry");
+const BuildPreferencesRegistry_1 = require("@civ-clone/core-city-build/BuildPreferencesRegistry");
 const CityBuildRegistry_1 = require("@civ-clone/core-city-build/CityBuildRegistry");
 const CityGrowthRegistry_1 = require("@civ-clone/core-city-growth/CityGrowthRegistry");
 const CityImprovementRegistry_1 = require("@civ-clone/core-city-improvement/CityImprovementRegistry");
@@ -96,6 +97,7 @@ exports.defaultSlots = {
     availableSpecialists: AvailableSpecialistRegistry_1.instance,
     availableTradeRates: AvailableTradeRateRegistry_1.instance,
     availableUnitImprovements: AvailableUnitImprovementRegistry_1.instance,
+    buildPreferences: BuildPreferencesRegistry_1.instance,
     cities: CityRegistry_1.instance,
     cityBuilds: CityBuildRegistry_1.instance,
     cityGrowth: CityGrowthRegistry_1.instance,

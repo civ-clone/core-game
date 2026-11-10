@@ -10,6 +10,7 @@ import { instance as availableDifficultyRegistryInstance } from '@civ-clone/core
 import { instance as availableSpecialistRegistryInstance } from '@civ-clone/core-city/AvailableSpecialistRegistry';
 import { instance as gameDifficultyRegistryInstance } from '@civ-clone/core-difficulty/GameDifficultyRegistry';
 import { instance as gameResultRegistryInstance } from '@civ-clone/core-turn-based-game/GameResultRegistry';
+import { instance as buildPreferencesRegistryInstance } from '@civ-clone/core-city-build/BuildPreferencesRegistry';
 import { instance as cityRegistryInstance } from '@civ-clone/core-city/CityRegistry';
 import { instance as playerRegistryInstance } from '@civ-clone/core-player/PlayerRegistry';
 import { instance as requirementRegistryInstance } from '@civ-clone/core-requirement/RequirementRegistry';
@@ -37,6 +38,7 @@ describe('Game', (): void => {
     expect(a.availableDifficulties).to.not.equal(b.availableDifficulties);
     expect(a.worldPeace).to.not.equal(b.worldPeace);
     expect(a.unitLosses).to.not.equal(b.unitLosses);
+    expect(a.buildPreferences).to.not.equal(b.buildPreferences);
   });
 
   it('should not let one game see another game`s entities', (): void => {
@@ -121,6 +123,9 @@ describe('Game', (): void => {
     );
     expect(defaultGame.worldPeace).to.equal(worldPeaceRegistryInstance);
     expect(defaultGame.unitLosses).to.equal(unitLossRegistryInstance);
+    expect(defaultGame.buildPreferences).to.equal(
+      buildPreferencesRegistryInstance
+    );
   });
 
   it('should keep `defaultGame` separate from a fresh game', (): void => {

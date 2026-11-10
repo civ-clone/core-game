@@ -11,6 +11,7 @@ import { AvailableTerrainFeatureRegistry } from '@civ-clone/core-terrain-feature
 import { AvailableTileImprovementRegistry } from '@civ-clone/core-tile-improvement/AvailableTileImprovementRegistry';
 import { AvailableUnitImprovementRegistry } from '@civ-clone/core-unit-improvement/AvailableUnitImprovementRegistry';
 import { AvailableTradeRateRegistry } from '@civ-clone/core-trade-rate/AvailableTradeRateRegistry';
+import { BuildPreferencesRegistry } from '@civ-clone/core-city-build/BuildPreferencesRegistry';
 import { CityBuildRegistry } from '@civ-clone/core-city-build/CityBuildRegistry';
 import { CityGrowthRegistry } from '@civ-clone/core-city-growth/CityGrowthRegistry';
 import { CityImprovementRegistry } from '@civ-clone/core-city-improvement/CityImprovementRegistry';
@@ -87,6 +88,7 @@ export type GameSlots = {
   availableTileImprovements: AvailableTileImprovementRegistry;
   availableTradeRates: AvailableTradeRateRegistry;
   availableUnitImprovements: AvailableUnitImprovementRegistry;
+  buildPreferences: BuildPreferencesRegistry;
   cities: CityRegistry;
   cityBuilds: CityBuildRegistry;
   cityGrowth: CityGrowthRegistry;
@@ -150,6 +152,7 @@ export declare class Game {
   readonly availableTileImprovements: AvailableTileImprovementRegistry;
   readonly availableTradeRates: AvailableTradeRateRegistry;
   readonly availableUnitImprovements: AvailableUnitImprovementRegistry;
+  readonly buildPreferences: BuildPreferencesRegistry;
   readonly cities: CityRegistry;
   readonly cityBuilds: CityBuildRegistry;
   readonly cityGrowth: CityGrowthRegistry;
