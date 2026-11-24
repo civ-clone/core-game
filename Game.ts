@@ -224,10 +224,13 @@ export class Game {
     this.engine = adopted.engine ?? new Engine();
     this.rng = adopted.rng ?? createRng(Date.now());
     this.turn = adopted.turn ?? new Turn();
-    this.year = adopted.year ?? new Year();
 
     // `rules` and `rng` are assigned before the registries that take them.
     this.rules = adopted.rules ?? new RuleRegistry();
+
+    // On the game's own turn and rules, so the year a ruleset registers (`Year`, `YearKey`) is the one it answers with
+    //  (civ-clone/web-renderer#248).
+    this.year = adopted.year ?? new Year(this.turn, this.rules);
 
     this.additionalData =
       adopted.additionalData ?? new AdditionalDataRegistry();

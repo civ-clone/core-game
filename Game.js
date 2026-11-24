@@ -83,9 +83,11 @@ class Game {
         this.engine = (_a = adopted.engine) !== null && _a !== void 0 ? _a : new Engine_1.Engine();
         this.rng = (_b = adopted.rng) !== null && _b !== void 0 ? _b : (0, core_random_1.createRng)(Date.now());
         this.turn = (_c = adopted.turn) !== null && _c !== void 0 ? _c : new Turn_1.Turn();
-        this.year = (_d = adopted.year) !== null && _d !== void 0 ? _d : new Year_1.Year();
         // `rules` and `rng` are assigned before the registries that take them.
-        this.rules = (_e = adopted.rules) !== null && _e !== void 0 ? _e : new RuleRegistry_1.RuleRegistry();
+        this.rules = (_d = adopted.rules) !== null && _d !== void 0 ? _d : new RuleRegistry_1.RuleRegistry();
+        // On the game's own turn and rules, so the year a ruleset registers (`Year`, `YearKey`) is the one it answers with
+        //  (civ-clone/web-renderer#248).
+        this.year = (_e = adopted.year) !== null && _e !== void 0 ? _e : new Year_1.Year(this.turn, this.rules);
         this.additionalData =
             (_f = adopted.additionalData) !== null && _f !== void 0 ? _f : new AdditionalDataRegistry_1.AdditionalDataRegistry();
         this.advances = (_g = adopted.advances) !== null && _g !== void 0 ? _g : new AdvanceRegistry_1.AdvanceRegistry();

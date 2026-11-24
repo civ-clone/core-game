@@ -1,5 +1,7 @@
 import { DataObject } from '@civ-clone/core-data-object/DataObject';
+import Effect from '@civ-clone/core-rule/Effect';
 import { Game } from '../Game';
+import YearRule from '@civ-clone/core-game-year/Rules/Year';
 import City from '@civ-clone/core-city/City';
 import Player from '@civ-clone/core-player/Player';
 import World from '@civ-clone/core-world/World';
@@ -95,6 +97,18 @@ describe('Game', (): void => {
 
     expect(a.turn.value()).to.equal(2);
     expect(b.turn.value()).to.equal(0);
+  });
+
+  it("should answer each game's year through its own turn and rules", (): void => {
+    // A ruleset registers its calendar against a game (civ-clone/web-renderer#248).
+    const game = new Game();
+
+    game.rules.register(
+      new YearRule(new Effect((turn: number): number => 1000 + turn))
+    );
+    game.turn.increment();
+
+    expect(game.year.value()).to.equal(1001);
   });
 
   it('should let `defaultGame` adopt the module singletons', (): void => {
